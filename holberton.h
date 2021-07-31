@@ -5,25 +5,22 @@
 #include <stdarg.h>
 
 /**
- * struct op - Struct op
- * @op: The operator
+ * struct format_specifiers - make structs that selects func's
+ * @spec: types
  * @f: The function associated
  */
-typedef struct op
+typedef struct format_spesifiers
 {
-	char *op;
-	void (*f)(void *);
+	char spec;
+	int (*f)(va_list);
 } op_t;
 
-int sum_them_all(const unsigned int n, ...);
-void print_numbers(const char *separator, const unsigned int n, ...);
-void print_strings(const char *separator, const unsigned int n, ...);
-void print_all(const char * const format, ...);
-
-void (*get_op_func(char *s))(void *);
-void p_c(void *);
-void p_d(void *);
-void p_f(void *);
-void p_s(void *);
+int _putchar(char c);
+int _printf(const char *format, ...);
+void (*get_funky(char *s))(va_list);
+int p_c(va_list);
+int p_s(va_list);
+int p_p(va_list);
+int p_d(va_list);
 
 #endif

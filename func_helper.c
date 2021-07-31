@@ -19,10 +19,10 @@ int _putchar(char c)
  * @b: number to be added
  * Return: result of a + b
  */
-void p_c(void *c)
+void p_c(va_list args)
 {
 
-	_putchar(get_op_func(void *);   /** working out set up for fucntion**/
+	_putchar( ????(va_list);   /** working out set up for fucntion**/
 }
 }
 /**
@@ -33,6 +33,7 @@ void p_c(void *c)
  */
 void p_s(void *str)
 {
+	int count = 0;
 	int i = 0;
         if (!str)
              str = "(null)";
