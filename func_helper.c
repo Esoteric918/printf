@@ -19,10 +19,10 @@ int _putchar(char c)
  * @b: number to be added
  * Return: result of a + b
  */
-void p_c(va_list args)
+int p_c(va_list args)
 {
 
-	_putchar( ????(va_list);   /** working out set up for fucntion**/
+	_putchar((va_list);   /** working out set up for fucntion**/
 }
 }
 /**
@@ -31,7 +31,7 @@ void p_c(va_list args)
  * 
  * Return: ????
  */
-void p_s(void *str)
+int p_s(va_list *str)
 {
 	int count = 0;
 	int i = 0;
@@ -41,6 +41,7 @@ void p_s(void *str)
 	{
 		_putchar(str[i]);
 		i++;
+		count++;
 
 	}
 }
@@ -50,7 +51,7 @@ void p_s(void *str)
  * @b: number to subtract
  * Return: result of a - b
  */
-void p_d(void *num)
+int p_d(va_list)
 {
 	printf("%d", num);
 }
@@ -60,7 +61,7 @@ void p_d(void *num)
  * @b: number to be multiplied
  * Return: result of a * b
  */
-void p_f(void *db)
+int p_f(int *db)
 {
 	printf("%f", db);
 }
