@@ -10,9 +10,9 @@
 void print_all(const char * const format, ...)
 {
 	int i = 0;
-	void (*func)(va_list);
+	void (*funk)(va_list);
 	char ch2str[2];
-	int thing;
+	unsigned long long D = 0;
 
 	va_list args;
 	va_start(args, format);
@@ -22,13 +22,13 @@ void print_all(const char * const format, ...)
 		ch2str[0] = format[i];
 		ch2str[1] = '\0';
 
-		func = get_funky(ch2str);
+		funk = get_funky(ch2str);
 
 		/* check if func != NULL */
-		if (func != NULL)
+		if (funk != NULL)
 		{
 			/* feed in the va_list for current function */
-			func(&args);
+			funk(&args, &D);
 			/* print seperator between values, should remove */
 			if (format[i + 1] != '\0' )
 				printf(", ");

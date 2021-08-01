@@ -8,7 +8,7 @@
 
 /**
  * struct format_specifiers - make structs that return func pointers
- * @spec: types
+ * @op: types
  * @f: The function associated
  */
 typedef struct format_specifiers
@@ -24,5 +24,5 @@ void p_c(va_list *);
 void p_s(va_list *);
 void p_d(va_list *);
 void p_f(va_list *);
-
+void p_p(va_list *);
 #endif

@@ -14,44 +14,55 @@ int _putchar(char c)
  * @argz: currently char in va_list
  * Return: 1 since char is only ever 1 character
  */
-void p_c(va_list *argz)
+void p_c(va_list *argz, unsigned long long *D)
 {
-	char ch = va_arg(*argz, int); 
+	char ch = va_arg(*argz, int);
 	_putchar(ch);
-/*	return (1); */
+	++*D;
 }
 /**
  * p_s - print string
  * @argz: currently string in va_list
  * Return: count of chars from string printed
  */
-void p_s(va_list *argz)
+void p_s(va_list *argz, unsigned long long *D)
 {
-	int count = 0, i = 0;
+	unsigned int i;
 	char *str = va_arg(*argz, char *);
 
 	if (str)
 	{
-		for (i = 0; str[i]; ++i, ++count)   /** working out set up for fucntion*/
+		for (i = 0; str[i]; ++i, ++*D)
 			_putchar(str[i]);
 	}
-/*	return (count); */
 }
+/**
+ * p_p - % specifier and print
+ * @argz: argument pointer
+ *
+ * Return: count
+ */
+void p_p(va_list *argz, unsigned long long *D)
+{
+	_putchar('%')
+		++*D;
+}
+
 /**
  * p_d - print integer
  * @argz: currently integer in va_list
  * Return: count of chars from int printed
  */
-void p_d(va_list *argz)
+void p_d(va_list *argz, unsigned long long *D)
 {
-	printf("%d", va_arg(*argz, int)); 
+	printf("%d", va_arg(*argz, int));
 }
 /**
  * p_fd - print float or double
  * @argz: currently float/double in va_list
  * Return: count of chars from float/double printed
  */
-void p_f(va_list *argz)
+void p_f(va_list *argz, unsigned long long *D)
 {
 /*	printf("%f", db); */
 }
