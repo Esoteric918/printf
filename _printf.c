@@ -1,6 +1,6 @@
 #include "holberton.h"
-#include "funky_hlpr.c"
-
+#include "funky_hlpr_0-1.c"
+#include "funky_hlpr_2.c"
 /**
  * print_numbers - print the numbers passed to func with separator
  * @n: the numbers to print
@@ -49,11 +49,13 @@ unsigned long long print_all(const char * const format, ...)
 void (*get_funky(char *s))(va_list *, unsigned long long *)
 {
 	op_t ops[] = {
+		{"b", p_b},
 		{"c", p_c},
-		{"i", p_d},
+		{"d", p_di},
 		{"f", p_f},
-		{"s", p_s},
+		{"i", p_di},
 		{"%", p_p},
+		{"s", p_s},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -64,10 +66,10 @@ void (*get_funky(char *s))(va_list *, unsigned long long *)
 
 	return (ops[i].f);
 }
-
+/* for testing */
 int main(void)
 {
-	printf("%llu", print_all("c%is", 'p', 0, "stuff"));
+	printf("%llu", print_all("c%isdb", 'p', -2147483647, "stuff", 1024, UINT_MAX));
 
 	return (0);
 }
