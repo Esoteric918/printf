@@ -7,6 +7,7 @@
  */
 int _putchar(char c)
 {
+	/* check rtrn val of func to confirm success */
 	return (write(1, &c, 1));
 }
 /**
@@ -39,15 +40,13 @@ void p_s(va_list *argz, unsigned long long *D)
 /**
  * p_p - % specifier and print
  * @argz: argument pointer
- *
  * Return: count
  */
 void p_p(va_list *argz, unsigned long long *D)
 {
-	_putchar('%')
+	_putchar('%');
 		++*D;
 }
-
 /**
  * p_d - print integer
  * @argz: currently integer in va_list

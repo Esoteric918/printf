@@ -1,5 +1,5 @@
 #include "holberton.h"
-#include "func_helper.c"
+#include "funky_hlpr.c"
 
 /**
  * print_numbers - print the numbers passed to func with separator
@@ -7,10 +7,10 @@
  * @separator: the string to put between numbers
  * Return: void
  */
-void print_all(const char * const format, ...)
+unsigned long long print_all(const char * const format, ...)
 {
 	int i = 0;
-	void (*funk)(va_list);
+	void (*funk)(va_list *, unsigned long long *);
 	char ch2str[2];
 	unsigned long long D = 0;
 
@@ -38,19 +38,22 @@ void print_all(const char * const format, ...)
 	va_end(args);
 
 	printf("\n");
+
+	return (D);
 }
 /**
  * get_funky - returns a pointer to the correct function to use
  * @s: string of operation fed from argv[2]
  * Return: pointer to the correct function
  */
-void (*get_funky(char *s))(va_list *)
+void (*get_funky(char *s))(va_list *, unsigned long long *)
 {
 	op_t ops[] = {
 		{"c", p_c},
 		{"i", p_d},
 		{"f", p_f},
 		{"s", p_s},
+		{"%", p_p},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -64,7 +67,7 @@ void (*get_funky(char *s))(va_list *)
 
 int main(void)
 {
-	print_all("cis", 'p', 0, "stuff");
+	printf("%llu", print_all("c%is", 'p', 0, "stuff"));
 
 	return (0);
 }
