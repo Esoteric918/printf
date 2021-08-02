@@ -2,9 +2,10 @@
 /**
  * p_c - print char
  * @argz: currently char in va_list
+ * @D: count of chars printed
  * Return: 1 since char is only ever 1 character
  */
-void p_c(va_list *argz, unsigned long long *D)
+void p_c(va_list *argz, unsigned long long *D, flag_list *flagz)
 {
 	char ch = va_arg(*argz, int);
 	_putchar(ch);
@@ -13,13 +14,27 @@ void p_c(va_list *argz, unsigned long long *D)
 /**
  * p_d - print integer
  * @argz: currently integer in va_list
+ * @D: count of chars printed
  * Return: count of chars from int printed
  */
-void p_di(va_list *argz, unsigned long long *D)
+void p_di(va_list *argz, unsigned long long *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
 	int digit;
 
+	if ((*flagz).h)
+	{
+		/* check if value is within short range */
+		if (val > 32767 || val < -32768)
+		{
+			_putchar('-');
+			_putchar('1');
+			*D+=2;
+			/* set all values for flag 0 */
+			reset_flags(flagz);
+			return;
+		}
+	}
 	/* check for negative val */ 
 	if (val < 0)
 	{
@@ -40,9 +55,10 @@ void p_di(va_list *argz, unsigned long long *D)
 /**
  * p_f - print float or double
  * @argz: currently float/double in va_list
+ * @D: count of chars printed
  * Return: count of chars from float/double printed
  */
-void p_f(va_list *argz, unsigned long long *D)
+void p_f(va_list *argz, unsigned long long *D, flag_list *flagz)
 {
 	printf("%f", va_arg(*argz, double));
 }
@@ -51,7 +67,7 @@ void p_f(va_list *argz, unsigned long long *D)
  * @argz: argument pointer
  * Return: count
  */
-void p_p(va_list *argz, unsigned long long *D)
+void p_p(va_list *argz, unsigned long long *D, flag_list *flagz)
 {
 	_putchar('%');
 		++*D;
@@ -59,9 +75,10 @@ void p_p(va_list *argz, unsigned long long *D)
 /**
  * p_s - print string
  * @argz: currently string in va_list
+ * @D: count of chars printed
  * Return: count of chars from string printed
  */
-void p_s(va_list *argz, unsigned long long *D)
+void p_s(va_list *argz, unsigned long long *D, flag_list *flagz)
 {
 	unsigned int i;
 	char *str = va_arg(*argz, char *);

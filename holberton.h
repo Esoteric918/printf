@@ -6,15 +6,11 @@
 #include <stdarg.h>
 #include <string.h>
 
-/* prototypes */
-int _putchar(char c);
-int _printf(const char *format, ...);
-void (*get_funky(char *s))(va_list *, unsigned long long *);
-void p_c(va_list *, unsigned long long *);
-void p_di(va_list *, unsigned long long *);
-void p_f(va_list *, unsigned long long *);
-void p_p(va_list *, unsigned long long *);
-void p_s(va_list *, unsigned long long *);
+typedef struct conversion_specifier
+{
+	int h;
+	int l;
+} flag_list;
 
 /**
  * struct format_specifiers - make structs that return func pointers
@@ -24,9 +20,21 @@ void p_s(va_list *, unsigned long long *);
 typedef struct format_specifiers
 {
 	char *op;
-	void (*f)(va_list *, unsigned long long *);
-} op_t;
+	void (*f)(va_list *, unsigned long long *, flag_list *);
+} spec_list;
 
+/* prototypes */
+int _putchar(char c);
+unsigned long long print_all(const char * const format, ...);
+void (*get_funky(char *s))(va_list *, unsigned long long *, flag_list *);
+void reset_flags(flag_list *flags);
+/* print functions */
+void p_c(va_list *, unsigned long long *, flag_list *);
+void p_di(va_list *, unsigned long long *, flag_list *);
+void p_f(va_list *, unsigned long long *, flag_list *);
+void p_p(va_list *, unsigned long long *, flag_list *);
+void p_s(va_list *, unsigned long long *, flag_list *);
+void p_u(va_list *argz, unsigned long long *D, flag_list *);
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
