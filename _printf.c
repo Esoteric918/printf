@@ -59,13 +59,15 @@ unsigned long long print_all(const char * const format, ...)
 void (*get_funky(char *s))(va_list *, unsigned long long *, flag_list *)
 {
 	spec_list spec[] = {
-		{"b", p_u},
+		{"b", p_b},
 		{"c", p_c},
 		{"d", p_di},
 		{"f", p_fd},
 		{"i", p_di},
 		{"%", p_p},
 		{"s", p_s},
+		{"u", p_u},
+		{"o", p_o},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -90,8 +92,8 @@ void reset_flags(flag_list *flags)
 int main(void)
 {
 	int d = 327670;
-	printf("%hd\n", d);
-	printf("%llu", print_all("c%isdbhi", 'p', 0, "stuff", 1024, UINT_MAX, d));
+	printf("%o\n", INT_MIN);
+	printf("%llu", print_all("c%isduhdbo", 'p', 0, "stuff", INT_MIN, UINT_MAX, d, 9, INT_MIN));
 
 	return (0);
 }
