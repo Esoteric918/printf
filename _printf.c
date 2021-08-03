@@ -49,13 +49,13 @@ unsigned long print_all(const char * const format, ...)
 			funk(&args, &D, &flags);
 			/* print seperator between values, should remove */
 			if (format[i + 1] != '\0' )
-				printf(", ");
+				_putchar(',');
 		}
 		++i;
 	}
 	va_end(args);
 
-	printf("\n");
+	_putchar('\n');
 
 	return (D);
 }
@@ -83,7 +83,7 @@ void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
 	int i = 0;
 
 	/* find the correct func based on s */
-	while (spec[i].op != NULL && strcmp(spec[i].op, s))
+	while (spec[i].op != NULL && _strcmp(spec[i].op, s))
 		++i;
 
 	return (spec[i].f);
@@ -97,13 +97,30 @@ void reset_flags(flag_list *flags)
 {
 	(*flags).h = 0;
 	(*flags).l = 0;
+	(*flags).X = 0;
 }
 /* for testing */
 int main(void)
 {
 	int d = 327670;
-	printf("%o\n", INT_MIN);
-	printf("%lu", print_all("c%isduhdboX", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647, 175));
+	print_all("c%isduhdboX", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647, 175);
 
 	return (0);
+}
+/**
+ * _strcmp - compares two strings
+ *@s1: dest of string
+ *@s2: src of string
+ *
+ * Return: n
+ */
+int _strcmp(char *s1, char *s2)
+{
+	int i;
+
+	for (i = 0; s1[i] == s2[i] ; i++)
+		if (s1[i] == '\0')
+			return (0);
+	return (s1[i] - s2[i]);
+
 }

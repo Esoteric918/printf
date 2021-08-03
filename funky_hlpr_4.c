@@ -18,7 +18,7 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 		{
 			_putchar('-');
 			_putchar('1');
-			*D+=2;
+			*D += 2;
 			/* set all values for flag 0 */
 			reset_flags(flagz);
 			return;
@@ -32,14 +32,15 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 		++*D;
 	}
 	/* find the size of int */
-	for (digit = 1; (val / digit) >= 8; digit*=8)
+	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;
 	/* walk it back one, and print all the values */
-	for (; digit >= 1; val%=digit, digit/=8)
+	for (; digit >= 1; val %= digit, digit /= 8)
 	{
 		_putchar((val / digit) + '0');
 		++*D;
 	}
+	reset_flags(flagz);
 }
 /**
  * p_u - print unsigned integer in Base10
@@ -55,14 +56,15 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
 
 	UNUZED(flagz);
 	/* find the size of val */
-	for (digit = 1; (val / digit) >= 10; digit*=10)
+	for (digit = 1; (val / digit) >= 10; digit *= 10)
 	;
 	/* walk it back one, and print all the values */
-	for (; digit >= 1; val%=digit, digit/=10)
+	for (; digit >= 1; val %= digit, digit/=10)
 	{
 		_putchar((val / digit) + '0');
 		++*D;
 	}
+	reset_flags(flagz);
 }
 /**
  * p_Xx - print value in Base16, hexidecimal
@@ -105,6 +107,7 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 	{
 		prnt_hlpr(val / digit, (*flagz).X, D);
 	}
+	reset_flags(flagz);
 }
 /**
  * prnt_hlpr - hex printer
@@ -115,53 +118,37 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
  */
 void prnt_hlpr(int result, int caps, unsigned long *D)
 {
-	switch (result)
-	{
-		case 10:
-			if (caps)
-				_putchar('A');
-			else
-				_putchar('a');
-			++*D;
-			break;
-		case 11:
-			if (caps)
+	if (result == 10)
+		if (caps)
+			_putchar('A');
+		else
+			_putchar('a');
+	else if (result == 11)
+		if (caps)
 				_putchar('B');
 			else
 				_putchar('b');
-			++*D;			
-			break;
-		case 12:
-			if (caps)
+	else if (result == 12)
+		if (caps)
 				_putchar('C');
 			else
 				_putchar('c');
-			++*D;			
-			break;
-		case 13:
-			if (caps)
+	else if (result == 13)
+		if (caps)
 				_putchar('D');
 			else
 				_putchar('d');
-			++*D;			
-			break;
-		case 14:
-			if (caps)
+	else if (result == 14)
+		if (caps)
 				_putchar('E');
 			else
 				_putchar('e');
-			++*D;			
-			break;
-		case 15:
-			if (caps)
+	else if (result == 15)
+		if (caps)
 				_putchar('F');
 			else
 				_putchar('f');
-			++*D;			
-			break;
-		default:
-			_putchar(result + '0');
-			++*D;			
-			break;
-	}
+	else 
+		_putchar(result + '0');
+	++*D;
 }

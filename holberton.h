@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <unistd.h>
 
 typedef struct conversion_specifier
 {
@@ -31,9 +32,11 @@ typedef struct format_specifiers
 
 /* prototypes */
 int _putchar(char c);
+int _strcmp(char *s1, char *s2);
+void reset_flags(flag_list *flags);
+void prnt_hlpr(int result, int caps, unsigned long *D);
 unsigned long print_all(const char * const format, ...);
 void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *);
-void reset_flags(flag_list *flags);
 /* print functions */
 void p_b(va_list *, unsigned long *, flag_list *);
 void p_c(va_list *, unsigned long *, flag_list *);
@@ -44,7 +47,8 @@ void p_p(va_list *, unsigned long *, flag_list *);
 void p_s(va_list *, unsigned long *, flag_list *);
 void p_u(va_list *, unsigned long *, flag_list *);
 void p_Xx(va_list *, unsigned long *, flag_list *);
-void prnt_hlpr(int result, int caps, unsigned long *D);
+
+
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print

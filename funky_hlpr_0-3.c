@@ -19,6 +19,7 @@ void p_b(va_list *argz, unsigned long *D, flag_list *flagz)
 		_putchar((val / digit) + '0');
 		++*D;
 	}
+	reset_flags(flagz);
 }
 /**
  * p_c - print char
@@ -34,6 +35,7 @@ void p_c(va_list *argz, unsigned long *D, flag_list *flagz)
 	UNUZED(flagz);
 	_putchar(ch);
 	++*D;
+	reset_flags(flagz);
 }
 /**
  * p_di - print integer
@@ -76,6 +78,7 @@ void p_di(va_list *argz, unsigned long *D, flag_list *flagz)
 		_putchar((val / digit) + '0');
 		++*D;
 	}
+	reset_flags(flagz);
 }
 /**
  * p_p - print %
@@ -90,7 +93,8 @@ void p_p(va_list *argz, unsigned long *D, flag_list *flagz)
 	UNUZED(flagz);
 
 	_putchar('%');
-		++*D;
+	++*D;
+	reset_flags(flagz);
 }
 /**
  * p_s - print string
@@ -110,4 +114,5 @@ void p_s(va_list *argz, unsigned long *D, flag_list *flagz)
 		for (i = 0; str[i]; ++i, ++*D)
 			_putchar(str[i]);
 	}
+	reset_flags(flagz);
 }
