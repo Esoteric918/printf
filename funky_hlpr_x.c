@@ -13,7 +13,7 @@ void p_fd(va_list *argz, unsigned long *D, flag_list *flagz)
 	int i;
 
 	UNUZED(flagz);
-	/* check for negative val */ 
+	/* check for negative val */
 	if (val < 0)
 	{
 		_putchar('-');
@@ -28,7 +28,7 @@ void p_fd(va_list *argz, unsigned long *D, flag_list *flagz)
 	if (val >= 1)
 	{
 		/* if val >= 1 find size of val */
-		for (digit = 1; (val / digit) >= 10; digit*=10)
+		for (digit = 1; (val / digit) >= 10; digit *= 10)
 		;
 	}
 	else
@@ -36,11 +36,11 @@ void p_fd(va_list *argz, unsigned long *D, flag_list *flagz)
 		_putchar('.');
 		++*D;
 		/* if 0 < val < 1 */
-		for (digit = 0.000000000000000001; (val / digit) >= 10; digit*=10)
+		for (digit = 0.000000000000000001; (val / digit) >= 10; digit *= 10)
 		;
 	}
 	/* walk it back one, and print all the values */
-	for (i = 0; val > 0 && i < 19; val = fmod(val, digit), digit/=10)
+	for (i = 0; val > 0 && i < 19; val = fmod(val, digit), digit /= 10)
 	{
 		_putchar((val / digit) + '0');
 		if (val < 1 && val > 0)

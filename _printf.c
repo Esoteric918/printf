@@ -3,9 +3,8 @@
 #include "funky_hlpr_4.c"
 #include "funky_hlpr_x.c"
 /**
- * print_numbers - print the numbers passed to func with separator
- * @n: the numbers to print
- * @separator: the string to put between numbers
+ * print_all - print the numbers passed to func with separator
+ * @format: a string to print with various identifiers to inject variables
  * Return: void
  */
 unsigned long print_all(const char * const format, ...)
@@ -20,43 +19,27 @@ unsigned long print_all(const char * const format, ...)
 
 	reset_flags(&flags);
 	va_start(args, format);
-
 	while (format && format[i])
 	{
 		/* identify and set flags */
-		switch(format[i])
-		{
-			case 'h':
-				flags.h = 1;
-				break;
-			case 'l':
-				flags.l = 1;
-				break;
-			case 'X':
-				flags.X = 1;
-				break;
-		}
-
+		flag_setter(format[i], &flags);
 		ch2str[0] = format[i];
 		ch2str[1] = '\0';
 
 		funk = get_funky(ch2str);
-
 		/* check if func != NULL */
 		if (funk != NULL)
 		{
 			/* feed in the va_list for current function */
 			funk(&args, &D, &flags);
 			/* print seperator between values, should remove */
-			if (format[i + 1] != '\0' )
+			if (format[i + 1] != '\0')
 				_putchar(',');
 		}
 		++i;
 	}
 	va_end(args);
-
 	_putchar('\n');
-
 	return (D);
 }
 /**
@@ -77,7 +60,7 @@ void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
 		{"s", p_s},
 		{"u", p_u},
 		{"x", p_Xx},
-		{"X", p_Xx},		
+		{"X", p_Xx},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -99,14 +82,16 @@ void reset_flags(flag_list *flags)
 	(*flags).l = 0;
 	(*flags).X = 0;
 }
-/* for testing */
-int main(void)
-{
-	int d = 327670;
-	print_all("c%isduhdboX", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647, 175);
-
-	return (0);
-}
+/*
+ *for testing
+ *int main(void
+ *{
+ *	int d = 327670;
+ *	print_all("c%isduhdboX", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
+ *
+ *	return (0);
+ *	}
+*/
 /**
  * _strcmp - compares two strings
  *@s1: dest of string
@@ -123,4 +108,24 @@ int _strcmp(char *s1, char *s2)
 			return (0);
 	return (s1[i] - s2[i]);
 
+}
+/**
+ * flag_setter - sets the flags for the current char
+ * @c: current char in format
+ * @flagz: our flag_list variable
+ */
+void flag_setter(char *c, flag_list *flagz)
+{
+	switch (c)
+	{
+	case 'h':
+		flags.h = 1;
+		break;
+	case 'l':
+		flags.l = 1;
+		break;
+	case 'X':
+		flags.X = 1;
+		break;
+	}
 }

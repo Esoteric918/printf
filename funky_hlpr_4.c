@@ -13,7 +13,7 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 
 	if ((*flagz).h)
 	{
-		/* check if value is within short range */
+/* check if value is within short range */
 		if (val > 32767 || val < -32768)
 		{
 			_putchar('-');
@@ -24,7 +24,7 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 			return;
 		}
 	}
-	/* check for negative val */ 
+	/* check for negative val */
 	if (val < 0)
 	{
 		_putchar('-');
@@ -59,7 +59,7 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
 	for (digit = 1; (val / digit) >= 10; digit *= 10)
 	;
 	/* walk it back one, and print all the values */
-	for (; digit >= 1; val %= digit, digit/=10)
+	for (; digit >= 1; val %= digit, digit /= 10)
 	{
 		_putchar((val / digit) + '0');
 		++*D;
@@ -86,13 +86,13 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 		{
 			_putchar('-');
 			_putchar('1');
-			*D+=2;
+			*D += 2;
 			/* set all values for flag 0 */
 			reset_flags(flagz);
 			return;
 		}
 	}
-	/* check for negative val */ 
+	/* check for negative val */
 	if (val < 0)
 	{
 		_putchar('-');
@@ -100,10 +100,10 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 		++*D;
 	}
 	/* find the size of int */
-	for (digit = 1; (val / digit) >= 16; digit*=16)
+	for (digit = 1; (val / digit) >= 16; digit *= 16)
 	;
 	/* walk it back one, and print all the values */
-	for (; digit >= 1; val%=digit, digit/=16)
+	for (; digit >= 1; val %= digit, digit /= 16)
 	{
 		prnt_hlpr(val / digit, (*flagz).X, D);
 	}
@@ -118,37 +118,31 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
  */
 void prnt_hlpr(int result, int caps, unsigned long *D)
 {
-	if (result == 10)
-		if (caps)
-			_putchar('A');
-		else
-			_putchar('a');
+	if (result == 10 && caps)
+		_putchar('A');
+	else if (result == 10)
+		_putchar('a');
+	else if (result == 11 && caps)
+		_putchar('B');
 	else if (result == 11)
-		if (caps)
-				_putchar('B');
-			else
-				_putchar('b');
+		_putchar('b');
+	else if (result == 12 && caps)
+		_putchar('C');
 	else if (result == 12)
-		if (caps)
-				_putchar('C');
-			else
-				_putchar('c');
+		_putchar('c');
+	else if (result == 13 && caps)
+		_putchar('D');
 	else if (result == 13)
-		if (caps)
-				_putchar('D');
-			else
-				_putchar('d');
+		_putchar('d');
+	else if (result == 14 && caps)
+		_putchar('E');
 	else if (result == 14)
-		if (caps)
-				_putchar('E');
-			else
-				_putchar('e');
+		_putchar('e');
+	else if (result == 15 && caps)
+		_putchar('F');
 	else if (result == 15)
-		if (caps)
-				_putchar('F');
-			else
-				_putchar('f');
-	else 
+		_putchar('f');
+	else
 		_putchar(result + '0');
 	++*D;
 }
