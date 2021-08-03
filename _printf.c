@@ -30,8 +30,11 @@ unsigned long print_all(const char * const format, ...)
 				flags.h = 1;
 				break;
 			case 'l':
-				break;
 				flags.l = 1;
+				break;
+			case 'X':
+				flags.X = 1;
+				break;
 		}
 
 		ch2str[0] = format[i];
@@ -69,10 +72,12 @@ void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
 		{"d", p_di},
 		{"f", p_fd},
 		{"i", p_di},
+		{"o", p_o},
 		{"%", p_p},
 		{"s", p_s},
 		{"u", p_u},
-		{"o", p_o},
+		{"x", p_Xx},
+		{"X", p_Xx},		
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -98,7 +103,7 @@ int main(void)
 {
 	int d = 327670;
 	printf("%o\n", INT_MIN);
-	printf("%lu", print_all("c%isduhdbo", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647));
+	printf("%lu", print_all("c%isduhdboX", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647, 175));
 
 	return (0);
 }

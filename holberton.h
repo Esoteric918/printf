@@ -11,6 +11,7 @@ typedef struct conversion_specifier
 {
 	int h;
 	int l;
+	int X;
 } flag_list;
 
 /**
@@ -42,6 +43,8 @@ void p_o(va_list *, unsigned long *, flag_list *);
 void p_p(va_list *, unsigned long *, flag_list *);
 void p_s(va_list *, unsigned long *, flag_list *);
 void p_u(va_list *, unsigned long *, flag_list *);
+void p_Xx(va_list *, unsigned long *, flag_list *);
+void prnt_hlpr(int result, int caps, unsigned long *D);
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
