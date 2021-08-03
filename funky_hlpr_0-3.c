@@ -1,13 +1,37 @@
 #include "holberton.h"
 /**
+ * p_b - print unsigned base10 as base2
+ * @agrz: currently unsigned decimal in va_list
+ * @flagz: UNUSED - list of possible print modifiers
+ * Return: count of chars from int printed
+ */
+void p_b(va_list *argz, unsigned long *D, flag_list *flagz)
+{
+	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int digit = 1;
+
+	UNUZED(flagz);
+	/* find the size of val */
+	for (digit = 1; (val / digit) >= 2; digit*=2)
+	;
+	for (; digit >= 1; val%=digit, digit/=2)
+	{
+		_putchar((val / digit) + '0');
+		++*D;
+	}
+}
+/**
  * p_c - print char
  * @argz: currently char in va_list
  * @D: count of chars printed
+ * @flagz: UNUSED - list of possible print modifiers
  * Return: 1 since char is only ever 1 character
  */
-void p_c(va_list *argz, unsigned long long *D, flag_list *flagz)
+void p_c(va_list *argz, unsigned long *D, flag_list *flagz)
 {
 	char ch = va_arg(*argz, int);
+
+	UNUZED(flagz);
 	_putchar(ch);
 	++*D;
 }
@@ -15,9 +39,10 @@ void p_c(va_list *argz, unsigned long long *D, flag_list *flagz)
  * p_di - print integer
  * @argz: currently integer in va_list
  * @D: count of chars printed
+ * @flagz: list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_di(va_list *argz, unsigned long long *D, flag_list *flagz)
+void p_di(va_list *argz, unsigned long *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
 	int digit;
@@ -46,66 +71,24 @@ void p_di(va_list *argz, unsigned long long *D, flag_list *flagz)
 	for (digit = 1; (val / digit) >= 10; digit*=10)
 	;
 	/* walk it back one, and print all the values */
-	for (; digit > 0; val%=digit, digit/=10)
+	for (; digit >= 1; val%=digit, digit/=10)
 	{
 		_putchar((val / digit) + '0');
 		++*D;
 	}
 }
 /**
- * p_fd - print floats, doubles, long doubles up to 19 decimals
- * @argz: currently integer in va_list
+ * p_p - print %
+ * @argz: UNUSED - argument pointer
  * @D: count of chars printed
- * Return: count of chars from int printed
- */
-void p_fd(va_list *argz, unsigned long long *D, flag_list *flagz)
-{
-	long double val = va_arg(*argz, long double);
-	long double digit;
-	int i;
-
-	/* check for negative val */ 
-	if (val < 0)
-	{
-		_putchar('-');
-		val *= -1;
-		++*D;
-	}
-	if (val == 0);
-	{
-		putchar('0');
-		++*D;
-	}
-	if (val >= 1)
-	{
-		/* if val >= 1 find size of val */
-		for (digit = 1; (val / digit) >= 10; digit*=10)
-		;
-	}
-	else
-	{
-		_putchar('.');
-		++*D;
-		/* if 0 < val < 1 */
-		for (digit = 0.000000000000000001; (val / digit) >= 10; digit*=10)
-		;
-	}
-	/* walk it back one, and print all the values */
-	for (i = 0; val > 0 && i < 19; val = fmod(val, digit), digit/=10)
-	{
-		_putchar((val / digit) + '0');
-		if (val < 1 && val > 0)
-			++i;
-		++*D;
-	}
-}
-/**
- * p_p - % specifier and print
- * @argz: argument pointer
+ * @flagz: UNUSED - list of possible print modifiers
  * Return: count
  */
-void p_p(va_list *argz, unsigned long long *D, flag_list *flagz)
+void p_p(va_list *argz, unsigned long *D, flag_list *flagz)
 {
+	UNUSED(argz);
+	UNUZED(flagz);
+
 	_putchar('%');
 		++*D;
 }
@@ -113,13 +96,15 @@ void p_p(va_list *argz, unsigned long long *D, flag_list *flagz)
  * p_s - print string
  * @argz: currently string in va_list
  * @D: count of chars printed
+ * @flagz: UNUSED - list of possible print modifiers
  * Return: count of chars from string printed
  */
-void p_s(va_list *argz, unsigned long long *D, flag_list *flagz)
+void p_s(va_list *argz, unsigned long *D, flag_list *flagz)
 {
 	unsigned int i;
 	char *str = va_arg(*argz, char *);
-
+	
+	UNUZED(flagz);
 	if (str)
 	{
 		for (i = 0; str[i]; ++i, ++*D)

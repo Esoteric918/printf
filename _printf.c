@@ -1,21 +1,24 @@
 #include "holberton.h"
-#include "funky_hlpr_0-1.c"
-#include "funky_hlpr_2.c"
+#include "funky_hlpr_0-3.c"
+#include "funky_hlpr_4.c"
+#include "funky_hlpr_x.c"
 /**
  * print_numbers - print the numbers passed to func with separator
  * @n: the numbers to print
  * @separator: the string to put between numbers
  * Return: void
  */
-unsigned long long print_all(const char * const format, ...)
+unsigned long print_all(const char * const format, ...)
 {
 	int i = 0;
-	void (*funk)(va_list *, unsigned long long *, flag_list *);
-	flag_list flags;
+	void (*funk)(va_list *, unsigned long *, flag_list *);
 	char ch2str[2];
-	unsigned long long D = 0;
-
+	unsigned long D = 0;
 	va_list args;
+	/* establish flags variable and set initial values */
+	flag_list flags;
+
+	reset_flags(&flags);
 	va_start(args, format);
 
 	while (format && format[i])
@@ -25,7 +28,9 @@ unsigned long long print_all(const char * const format, ...)
 		{
 			case 'h':
 				flags.h = 1;
+				break;
 			case 'l':
+				break;
 				flags.l = 1;
 		}
 
@@ -56,7 +61,7 @@ unsigned long long print_all(const char * const format, ...)
  * @s: string of operation fed from argv[2]
  * Return: pointer to the correct function
  */
-void (*get_funky(char *s))(va_list *, unsigned long long *, flag_list *)
+void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
 {
 	spec_list spec[] = {
 		{"b", p_b},
@@ -93,7 +98,7 @@ int main(void)
 {
 	int d = 327670;
 	printf("%o\n", INT_MIN);
-	printf("%llu", print_all("c%isduhdbo", 'p', 0, "stuff", INT_MIN, UINT_MAX, d, 9, INT_MIN));
+	printf("%lu", print_all("c%isduhdbo", 'p', 0, "stuff", -2147483647, UINT_MAX, d, 9, -2147483647));
 
 	return (0);
 }
