@@ -84,7 +84,7 @@ void flags_reset(flag_list *flagz)
 	(*flagz).X = 0;
 }
 /**
- * flag_setter - sets the flags for the current char
+ * flag_set - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
  * @i: iderate whe the op is found
@@ -111,29 +111,11 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 		(*flagz).X = 1;
 	}
 }
-/**
- * _strcmp - compares two strings
- *@s1: dest of string
- *@s2: src of string
- * Return: n
- */
-int _strcmp(char *s1, char *s2)
+/* for testing */
+int main(void)
 {
-	int i;
-
-	for (i = 0; s1[i] == s2[i] ; i++)
-		if (s1[i] == '\0')
-			return (0);
-	return (s1[i] - s2[i]);
-}
-/**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int _putchar(char c)
-{
-        /* check rtrn val of func to confirm success */
-        return (write(1, &c, 1));
+	int d = 327670;
+	d = print_all("my balls%c,%%,%i,%s,%d,%u,%hd,%b,%o,%X", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
+	print_all("%d", d);
+	return (0);
 }

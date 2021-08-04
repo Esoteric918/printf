@@ -1,5 +1,15 @@
-#include "hoberton.h"
-
+#include "holberton.h"
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+        /* check rtrn val of func to confirm success */
+        return (write(1, &c, 1));
+}
 /**
  * _strcmp - compares two strings
  *@s1: dest of string
