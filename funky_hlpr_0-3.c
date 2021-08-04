@@ -16,10 +16,8 @@ void p_b(va_list *argz, int *D, flag_list *flagz)
 	for (digit = 1; (val / digit) >= 2; digit *= 2)
 	;
 	for (; digit >= 1; val %= digit, digit /= 2)
-	{
-		_putchar((val / digit) + '0');
-		++*D;
-	}
+		*D += _putchar((val / digit) + '0');
+
 	flags_reset(flagz);
 }
 /**
@@ -34,8 +32,8 @@ void p_c(va_list *argz, int *D, flag_list *flagz)
 	char ch = va_arg(*argz, int);
 
 	(void)(flagz);
-	_putchar(ch);
-	++*D;
+	*D += _putchar(ch);
+
 	flags_reset(flagz);
 }
 /**
@@ -55,9 +53,9 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 		/* check if value is within short range */
 		if (val > 32767 || val < -32768)
 		{
-			_putchar('-');
-			_putchar('1');
-			*D += 2;
+			*D += _putchar('-');
+			*D += _putchar('1');
+
 			/* set all values for flag 0 */
 			flags_reset(flagz);
 			return;
@@ -66,9 +64,8 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	/* check for negative val */
 	if (val < 0)
 	{
-		_putchar('-');
+		*D += _putchar('-');
 		val *= -1;
-		++*D;
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 10; digit *= 10)
@@ -76,8 +73,7 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
 	{
-		_putchar((val / digit) + '0');
-		++*D;
+		*D += _putchar((val / digit) + '0');
 	}
 	flags_reset(flagz);
 }
@@ -93,8 +89,8 @@ void p_p(va_list *argz, int *D, flag_list *flagz)
 	(void)(argz);
 	(void)(flagz);
 
-	_putchar('%');
-	++*D;
+	*D += _putchar('%');
+
 	flags_reset(flagz);
 }
 /**
@@ -112,10 +108,9 @@ void p_s(va_list *argz, int *D, flag_list *flagz)
 	(void)(flagz);
 	if (str == 0)
 		str = "(null)";
-	if (str)
-	{
-		for (i = 0; str[i]; ++i, ++*D)
-			_putchar(str[i]);
-	}
+
+	for (i = 0; str[i]; ++i, ++*D)
+		_putchar(str[i]);
+
 	flags_reset(flagz);
 }

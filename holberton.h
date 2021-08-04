@@ -29,7 +29,7 @@ typedef struct format_specifiers
 /* prototypes */
 int _putchar(char c);
 int _strcmp(char *, char *);
-int flag_set(const char *, flag_list *, int *);
+int flag_set(const char *, flag_list *, int *, int *);
 void flags_reset(flag_list *);
 void prnt_hlpr(int, int, int *);
 int _printf(const char * const format, ...);

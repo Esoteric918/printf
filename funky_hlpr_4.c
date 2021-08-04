@@ -16,9 +16,8 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 		/* check if value is within short range */
 		if (val > 32767 || val < -32768)
 		{
-			_putchar('-');
-			_putchar('1');
-			*D += 2;
+			*D += _putchar('-');
+			*D += _putchar('1');
 			/* set all values for flag 0 */
 			flags_reset(flagz);
 			return;
@@ -27,19 +26,17 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 	/* check for negative val */
 	if (val < 0)
 	{
-		_putchar('-');
+		*D += _putchar('-');
 		val *= -1;
-		++*D;
+		
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 8)
-	{
-		_putchar((val / digit) + '0');
-		++*D;
-	}
+		*D += _putchar((val / digit) + '0');
+
 	flags_reset(flagz);
 }
 /**
@@ -60,10 +57,8 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 	;
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
-	{
-		_putchar((val / digit) + '0');
-		++*D;
-	}
+		*D += _putchar((val / digit) + '0');
+		
 	flags_reset(flagz);
 }
 /**
@@ -83,9 +78,8 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 		/* check if value is within short range */
 		if (val > 32767 || val < -32768)
 		{
-			_putchar('-');
-			_putchar('1');
-			*D += 2;
+			*D += _putchar('-');
+			*D += _putchar('1');
 			/* set all values for flag 0 */
 			flags_reset(flagz);
 			return;
@@ -94,9 +88,8 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	/* check for negative val */
 	if (val < 0)
 	{
-		_putchar('-');
+		*D += _putchar('-');
 		val *= -1;
-		++*D;
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 16; digit *= 16)

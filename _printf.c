@@ -11,27 +11,26 @@ int _printf(const char * const format, ...)
 	va_list args;
 	flag_list flags;
 
-	for (i = 0; format[i]; i++);
-	if (format[i - 1] == '%')
-		return (-1);
-	i = 0;
 	/* check if format exists */
 	if (format == NULL)
 		return (-1);
+
+	for (i = 0; format[i]; i++);
+	if (format[i - 1] == '%' || i == 0)
+		return (0);
+	i = 0;
+
 	/* set initial flags */
 	flags_reset(&flags);
 	va_start(args, format);
 	while (format && format[i])
 	{
 		/* identify and set flags, or exit returning chars printed */
-		if (flag_set(&format[i], &flags, &i))
+		if (flag_set(&format[i], &flags, &i, &D))
 			return (D);
 		/* if not for flags.op */
 		if (!flags.op)
-		{
-			_putchar(format[i]);
-			++D;
-		}
+			D += _putchar(format[i]);
 		else
 		{
 			funk = get_funky(format[i]);
@@ -42,7 +41,6 @@ int _printf(const char * const format, ...)
 		++i;
 	}
 	va_end(args);
-	_putchar('\n');
 	return (D);
 }
 /**
@@ -95,7 +93,7 @@ void flags_reset(flag_list *flagz)
  * @flagz: our flag_list variable
  * @i: iderate whe the op is found
  */
-int flag_set(const char *c, flag_list *flagz, int *i)
+int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 {
 	switch (*c)
 	{
@@ -106,8 +104,12 @@ int flag_set(const char *c, flag_list *flagz, int *i)
 			++*i;
 			if (*(c + 1) == '\0')
 				return (1);
-
-			flag_set(c + 1, flagz, i);
+			else if (*(c + 1) == ' ')
+			{
+				(*flagz).op = 0;
+				break;
+			}
+			flag_set(c + 1, flagz, i, D);
 		}
 		break;
 	case 'h':
@@ -118,6 +120,13 @@ int flag_set(const char *c, flag_list *flagz, int *i)
 		break;
 	case 'X':
 		(*flagz).X = 1;
+		break;
+	default:
+		if ((*flagz).op && get_funky(*c) == NULL)
+		{
+			*D += _putchar('%');
+			flags_reset(flagz);
+		}
 	}
 
 	return (0);
