@@ -1,6 +1,6 @@
 #include "holberton.h"
 /**
- * print_all - print the numbers passed to func with separator
+ * _printf - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
  * Return: void
  */
