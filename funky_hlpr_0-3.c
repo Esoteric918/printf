@@ -6,7 +6,7 @@
  * @flagz: UNUZED - list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_b(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_b(va_list *argz, int *D, flag_list *flagz)
 {
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit = 1;
@@ -29,7 +29,7 @@ void p_b(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: UNUSED - list of possible print modifiers
  * Return: 1 since char is only ever 1 character
  */
-void p_c(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_c(va_list *argz, int *D, flag_list *flagz)
 {
 	char ch = va_arg(*argz, int);
 
@@ -45,7 +45,7 @@ void p_c(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_di(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_di(va_list *argz, int *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
 	int digit;
@@ -88,7 +88,7 @@ void p_di(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: UNUSED - list of possible print modifiers
  * Return: count
  */
-void p_p(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_p(va_list *argz, int *D, flag_list *flagz)
 {
 	(void)(argz);
 	(void)(flagz);
@@ -104,7 +104,7 @@ void p_p(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: UNUSED - list of possible print modifiers
  * Return: count of chars from string printed
  */
-void p_s(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_s(va_list *argz, int *D, flag_list *flagz)
 {
 	unsigned int i;
 	char *str = va_arg(*argz, char *);

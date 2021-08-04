@@ -4,11 +4,11 @@
  * @format: a string to print with various identifiers to inject variables
  * Return: void
  */
-unsigned long print_all(const char * const format, ...)
+int _printf(const char * const format, ...)
 {
 	int i = 0;
-	void (*funk)(va_list *, unsigned long *, flag_list *);
-	unsigned long D = 0;
+	void (*funk)(va_list *, int *, flag_list *);
+	int D = 0;
 	va_list args;
 
 	/* establish flags variable and set initial values */
@@ -44,7 +44,7 @@ unsigned long print_all(const char * const format, ...)
  * @s: string of operation fed from argv[2]
  * Return: pointer to the correct function
  */
-void (*get_funky(char s))(va_list *, unsigned long *, flag_list *)
+void (*get_funky(char s))(va_list *, int *, flag_list *)
 {
 	char ch2str[2];
 	spec_list spec[] = {
@@ -110,4 +110,12 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 	case 'X':
 		(*flagz).X = 1;
 	}
+}
+/* for testing */
+int main(void)
+{
+	int d = 327670;
+	d = _printf("my balls%c,%%,%i,%s,%d,%u,%hd,%b,%o,%X", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
+	_printf("%d", d);
+	return (0);
 }

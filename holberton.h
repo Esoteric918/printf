@@ -23,7 +23,7 @@ typedef struct conversion_specifier
 typedef struct format_specifiers
 {
 	char *op;
-	void (*f)(va_list *, unsigned long *, flag_list *);
+	void (*f)(va_list *, int *, flag_list *);
 } spec_list;
 
 /* prototypes */
@@ -31,17 +31,17 @@ int _putchar(char c);
 int _strcmp(char *, char *);
 void flag_set(const char *, flag_list *, int *);
 void flags_reset(flag_list *);
-void prnt_hlpr(int, int, unsigned long *);
-unsigned long print_all(const char * const format, ...);
-void (*get_funky(char s))(va_list *, unsigned long *, flag_list *);
+void prnt_hlpr(int, int, int *);
+int _printf(const char * const format, ...);
+void (*get_funky(char s))(va_list *, int *, flag_list *);
 /* print functions */
-void p_b(va_list *, unsigned long *, flag_list *);
-void p_c(va_list *, unsigned long *, flag_list *);
-void p_di(va_list *, unsigned long *, flag_list *);
-void p_o(va_list *, unsigned long *, flag_list *);
-void p_p(va_list *, unsigned long *, flag_list *);
-void p_s(va_list *, unsigned long *, flag_list *);
-void p_u(va_list *, unsigned long *, flag_list *);
-void p_Xx(va_list *, unsigned long *, flag_list *);
+void p_b(va_list *, int *, flag_list *);
+void p_c(va_list *, int *, flag_list *);
+void p_di(va_list *, int *, flag_list *);
+void p_o(va_list *, int *, flag_list *);
+void p_p(va_list *, int *, flag_list *);
+void p_s(va_list *, int *, flag_list *);
+void p_u(va_list *, int *, flag_list *);
+void p_Xx(va_list *, int *, flag_list *);
 
 #endif

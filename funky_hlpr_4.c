@@ -6,7 +6,7 @@
  * @flagz: list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_o(va_list *argz, int *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
 	int digit;
@@ -49,7 +49,7 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: UNUSED - list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_u(va_list *argz, int *D, flag_list *flagz)
 {
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit;
@@ -73,7 +73,7 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
  * @flagz: list of possible print modifiers
  * Return: count of chars from int printed
  */
-void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
+void p_Xx(va_list *argz, int *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
 	int digit;
@@ -115,7 +115,7 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
  * @D: count of chars printed
  * Return: void
  */
-void prnt_hlpr(int result, int caps, unsigned long *D)
+void prnt_hlpr(int result, int caps, int *D)
 {
 	if (result == 10 && caps)
 		_putchar('A');
