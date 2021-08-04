@@ -90,16 +90,17 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 {
 	switch (*c)
 	{
-	case '%': {
-		(*flagz).op = 1;
-		++*i;
-		flag_set(c + 1, flagz, i);
+	case '%':
+		if (!(*flagz).op)
+		{
+			(*flagz).op = 1;
+			++*i;
+			flag_set(c + 1, flagz, i);
+		}
 		break;
-	}
-	case 'h': {
+	case 'h':
 		(*flagz).h = 1;
 		break;
-	}
 	case 'l': {
 		(*flagz).l = 1;
 		break;
@@ -134,11 +135,4 @@ int _putchar(char c)
 {
         /* check rtrn val of func to confirm success */
         return (write(1, &c, 1));
-}
-/* for testing */
-int main(void)
-{
-	int d = 327670;
-	print_all("my balls%c,%%,%i,%s,%d,%u,%hd,%b,%o,%X", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
-	return (0);
 }
