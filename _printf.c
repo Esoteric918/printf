@@ -111,11 +111,3 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 		(*flagz).X = 1;
 	}
 }
-/* for testing */
-int main(void)
-{
-	int d = 327670;
-	d = print_all("my balls%c,%%,%i,%s,%d,%u,%hd,%b,%o,%X", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
-	print_all("%d", d);
-	return (0);
-}
