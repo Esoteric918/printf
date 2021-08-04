@@ -27,10 +27,6 @@ typedef struct format_specifiers
 	void (*f)(va_list *, unsigned long *, flag_list *);
 } spec_list;
 
-/* define unused parameters */
-#define UNUSED(argz) (void)(argz)
-#define UNUZED(flagz) (void)(flagz)
-
 /* prototypes */
 int _putchar(char c);
 int _strcmp(char *, char *);

@@ -54,7 +54,7 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit;
 
-	UNUZED(flagz);
+	(void)(flagz);
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= 10; digit *= 10)
 	;

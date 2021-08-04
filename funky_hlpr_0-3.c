@@ -11,7 +11,7 @@ void p_b(va_list *argz, unsigned long *D, flag_list *flagz)
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit = 1;
 
-	UNUZED(flagz);
+	(void)(flagz);
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= 2; digit *= 2)
 	;
@@ -33,7 +33,7 @@ void p_c(va_list *argz, unsigned long *D, flag_list *flagz)
 {
 	char ch = va_arg(*argz, int);
 
-	UNUZED(flagz);
+	(void)(flagz);
 	_putchar(ch);
 	++*D;
 	flags_reset(flagz);
@@ -90,8 +90,8 @@ void p_di(va_list *argz, unsigned long *D, flag_list *flagz)
  */
 void p_p(va_list *argz, unsigned long *D, flag_list *flagz)
 {
-	UNUSED(argz);
-	UNUZED(flagz);
+	(void)(argz);
+	(void)(flagz);
 
 	_putchar('%');
 	++*D;
@@ -109,7 +109,7 @@ void p_s(va_list *argz, unsigned long *D, flag_list *flagz)
 	unsigned int i;
 	char *str = va_arg(*argz, char *);
 
-	UNUZED(flagz);
+	(void)(flagz);
 	if (str)
 	{
 		for (i = 0; str[i]; ++i, ++*D)
