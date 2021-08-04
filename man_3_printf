@@ -1,1 +1,63 @@
-all the info will go here
+.\" Manpage for _printf.
+.\" Contact Tofer - 3411@holbertonschool.com -- to correct errors or typos.
+.\" Contact Tres - 3319@holbertonschool.com -- to correct errors or typos.
+.TH man 3 04 Aug 2021 1.0 _printf man page
+.SH NAME
+    _printf \- prints format conversion
+.SH SYNOPSIS
+    #include <limits.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+
+    #include <stdarg.h>
+void flag_set(const char *, flag_list *, int *);
+void (*get_funky(char s))(va_list *, int *, flag_list *);
+void flag_set(const char *, flag_list *, int *);
+void flags_reset(flag_list *);
+int _printf(const char * const format, ...);
+void (*get_funky(char s))(va_list *, int *, flag_list *);
+
+    #include <unistd.h>
+int _putchar(char c);
+
+    #include "holberton.h"
+    /* print functions */
+void p_b(va_list *, int *, flag_list *);
+void p_c(va_list *, int *, flag_list *);
+void p_di(va_list *, int *, flag_list *);
+void p_o(va_list *, int *, flag_list *);
+void p_p(va_list *, int *, flag_list *);
+void p_s(va_list *, int *, flag_list *);
+void p_u(va_list *, int *, flag_list *);
+void p_Xx(va_list *, int *, flag_list *);
+.SH DESCRIPTION
+program that prints to terminal
+
+.SH OPTIONS
+_printf takes the following specifiers with corasponding funk call;
+	{"b", p_b}, print unsigned base10 as base2
+	{"c", p_c}, print char
+	{"d", p_di}, print integer
+	{"i", p_di}, print integer
+	{"o", p_o}, print number in Base8, Octal
+	{"%", p_p}, print %
+	{"s", p_s}, print string
+	{"u", p_u}, print unsigned integer in Base10
+	{"x", p_Xx}, print value in Base16, hexidecimal
+	{"X", p_Xx} print value in Base16, hexidecimal
+.SH FLAGS
+_prinf takes the folloing flags to modify output
+
+       	flagz.op = 0;
+	flagz.h = 0;
+	flagz.l = 0;
+	flagz.X = 0;
+Then set with the following funk:
+void flag_set(const char *c, flag_list *flagz, int *i)
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHOR
+Tofer Sokolosky 3411@holbertonschool.com
+Tres Serio 3319@holbertonschool.com
