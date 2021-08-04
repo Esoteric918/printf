@@ -11,7 +11,8 @@ int _printf(const char * const format, ...)
 	va_list args;
 	flag_list flags;
 
-	for (i = 0; format[i]; i++);
+	for (i = 0; format[i]; i++)
+	;
 	if (format[i - 1] == '%')
 		return (-1);
 	i = 0;
@@ -93,7 +94,8 @@ void flags_reset(flag_list *flagz)
  * flag_set - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
- * @i: iderate whe the op is found
+ * @i: iterator where the op is found
+ * Return: 1 if % is last char in c string, else 0
  */
 int flag_set(const char *c, flag_list *flagz, int *i)
 {
