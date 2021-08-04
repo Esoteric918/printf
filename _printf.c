@@ -22,7 +22,10 @@ unsigned long print_all(const char * const format, ...)
 		flag_set(&format[i], &flags, &i);
 		/* if not for flags.op */
 		if (!flags.op)
+		{
 			_putchar(format[i]);
+			++D;
+		}
 		else
 		{
 			funk = get_funky(format[i]);
@@ -101,13 +104,11 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 	case 'h':
 		(*flagz).h = 1;
 		break;
-	case 'l': {
+	case 'l':
 		(*flagz).l = 1;
 		break;
-	}
-	case 'X': {
+	case 'X':
 		(*flagz).X = 1;
-	}
 	}
 }
 /**
