@@ -13,14 +13,14 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 
 	if ((*flagz).h)
 	{
-/* check if value is within short range */
+		/* check if value is within short range */
 		if (val > 32767 || val < -32768)
 		{
 			_putchar('-');
 			_putchar('1');
 			*D += 2;
 			/* set all values for flag 0 */
-			reset_flags(flagz);
+			flags_reset(flagz);
 			return;
 		}
 	}
@@ -40,7 +40,7 @@ void p_o(va_list *argz, unsigned long *D, flag_list *flagz)
 		_putchar((val / digit) + '0');
 		++*D;
 	}
-	reset_flags(flagz);
+	flags_reset(flagz);
 }
 /**
  * p_u - print unsigned integer in Base10
@@ -64,7 +64,7 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
 		_putchar((val / digit) + '0');
 		++*D;
 	}
-	reset_flags(flagz);
+	flags_reset(flagz);
 }
 /**
  * p_Xx - print value in Base16, hexidecimal
@@ -88,7 +88,7 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 			_putchar('1');
 			*D += 2;
 			/* set all values for flag 0 */
-			reset_flags(flagz);
+			flags_reset(flagz);
 			return;
 		}
 	}
@@ -107,7 +107,7 @@ void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 	{
 		prnt_hlpr(val / digit, (*flagz).X, D);
 	}
-	reset_flags(flagz);
+	flags_reset(flagz);
 }
 /**
  * prnt_hlpr - hex printer

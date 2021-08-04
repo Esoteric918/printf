@@ -47,5 +47,5 @@ void p_fd(va_list *argz, unsigned long *D, flag_list *flagz)
 			++i;
 		++*D;
 	}
-	reset_flags(flagz);
+	flags_reset(flagz);
 }

@@ -1,7 +1,4 @@
 #include "holberton.h"
-#include "funky_hlpr_0-3.c"
-#include "funky_hlpr_4.c"
-#include "funky_hlpr_x.c"
 /**
  * print_all - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
@@ -17,24 +14,21 @@ unsigned long print_all(const char * const format, ...)
 	/* establish flags variable and set initial values */
 	flag_list flags;
 
-	reset_flags(&flags);
+	flags_reset(&flags);
 	va_start(args, format);
 	while (format && format[i])
 	{
 		/* identify and set flags */
-		flag_setter(format[i], &flags);
-		ch2str[0] = format[i];
-		ch2str[1] = '\0';
-
-		funk = get_funky(ch2str);
-		/* check if func != NULL */
-		if (funk != NULL)
+		flag_set(format[i], &flags, &i);
+		/* if not for flags.op */
+		if (!flags.op)
+			_putchar(format[i]);
+		else
 		{
-			/* feed in the va_list for current function */
-			funk(&args, &D, &flags);
-			/* print seperator between values, should remove */
-			if (format[i + 1] != '\0')
-				_putchar(',');
+			funk = get_funky(format[i]);
+			/* check if func != NULL */
+			if (funk != NULL)
+				funk(&args, &D, &flags);
 		}
 		++i;
 	}
@@ -47,8 +41,9 @@ unsigned long print_all(const char * const format, ...)
  * @s: string of operation fed from argv[2]
  * Return: pointer to the correct function
  */
-void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
+void (*get_funky(char s))(va_list *, unsigned long *, flag_list *)
 {
+	char ch2str[2];
 	spec_list spec[] = {
 		{"b", p_b},
 		{"c", p_c},
@@ -65,38 +60,51 @@ void (*get_funky(char *s))(va_list *, unsigned long *, flag_list *)
 	};
 	int i = 0;
 
+	ch2str[0] = s;
+	ch2str[1] = '\0';
+
 	/* find the correct func based on s */
-	while (spec[i].op != NULL && _strcmp(spec[i].op, s))
+	while (spec[i].op != NULL && _strcmp(spec[i].op, ch2str))
 		++i;
 
 	return (spec[i].f);
 }
 /**
- * reset_flags - set the print modifiers to zero
+ * flags_reset - set the print modifiers to zero
  * @flags: a flag_list with values to reset
  * Return: void
  */
-void reset_flags(flag_list *flags)
+void flags_reset(flag_list *flagz)
 {
-	(*flags).h = 0;
-	(*flags).l = 0;
-	(*flags).X = 0;
+	(*flagz).op = 0;	
+	(*flagz).h = 0;
+	(*flagz).l = 0;
+	(*flagz).X = 0;
 }
-/*
- *for testing
- *int main(void
- *{
- *	int d = 327670;
- *	print_all("c%isduhdboX", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
- *
- *	return (0);
- *	}
-*/
+/**
+ * flag_setter - sets the flags for the current char
+ * @c: current char in format
+ * @flagz: our flag_list variable
+ */
+void flag_set(char c, flag_list *flagz, int *i)
+{
+	switch (c)
+	{
+	case '%':
+		(*flagz).op = 1;
+		++*i;
+	case 'h':
+		(*flagz).h = 1;
+	case 'l':
+		(*flagz).l = 1;
+	case 'X':
+		(*flagz).X = 1;
+	}
+}
 /**
  * _strcmp - compares two strings
  *@s1: dest of string
  *@s2: src of string
- *
  * Return: n
  */
 int _strcmp(char *s1, char *s2)
@@ -107,25 +115,4 @@ int _strcmp(char *s1, char *s2)
 		if (s1[i] == '\0')
 			return (0);
 	return (s1[i] - s2[i]);
-
-}
-/**
- * flag_setter - sets the flags for the current char
- * @c: current char in format
- * @flagz: our flag_list variable
- */
-void flag_setter(char *c, flag_list *flagz)
-{
-	switch (c)
-	{
-	case 'h':
-		flags.h = 1;
-		break;
-	case 'l':
-		flags.l = 1;
-		break;
-	case 'X':
-		flags.X = 1;
-		break;
-	}
 }
