@@ -1,25 +1,32 @@
 #include "holberton.h"
 /**
- * print_all - print the numbers passed to func with separator
+ * _printf - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
  * Return: void
  */
 int _printf(const char * const format, ...)
 {
-	int i = 0;
+	int i = 0, D = 0;
 	void (*funk)(va_list *, int *, flag_list *);
-	int D = 0;
 	va_list args;
-
-	/* establish flags variable and set initial values */
 	flag_list flags;
 
+	for (i = 0; format[i]; i++)
+	;
+	if (format[i - 1] == '%')
+		return (-1);
+	i = 0;
+	/* check if format exists */
+	if (format == NULL)
+		return (-1);
+	/* set initial flags */
 	flags_reset(&flags);
 	va_start(args, format);
 	while (format && format[i])
 	{
-		/* identify and set flags */
-		flag_set(&format[i], &flags, &i);
+		/* identify and set flags, or exit returning chars printed */
+		if (flag_set(&format[i], &flags, &i))
+			return (D);
 		/* if not for flags.op */
 		if (!flags.op)
 		{
@@ -87,9 +94,10 @@ void flags_reset(flag_list *flagz)
  * flag_set - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
- * @i: iderate whe the op is found
+ * @i: iterator where the op is found
+ * Return: 1 if % is last char in c string, else 0
  */
-void flag_set(const char *c, flag_list *flagz, int *i)
+int flag_set(const char *c, flag_list *flagz, int *i)
 {
 	switch (*c)
 	{
@@ -98,6 +106,9 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 		{
 			(*flagz).op = 1;
 			++*i;
+			if (*(c + 1) == '\0')
+				return (1);
+
 			flag_set(c + 1, flagz, i);
 		}
 		break;
@@ -110,4 +121,6 @@ void flag_set(const char *c, flag_list *flagz, int *i)
 	case 'X':
 		(*flagz).X = 1;
 	}
+
+	return (0);
 }
