@@ -19,7 +19,7 @@ unsigned long print_all(const char * const format, ...)
 	while (format && format[i])
 	{
 		/* identify and set flags */
-		flag_set(format[i], &flags, &i);
+		flag_set(&format[i], &flags, &i);
 		/* if not for flags.op */
 		if (!flags.op)
 			_putchar(format[i]);
@@ -48,7 +48,6 @@ void (*get_funky(char s))(va_list *, unsigned long *, flag_list *)
 		{"b", p_b},
 		{"c", p_c},
 		{"d", p_di},
-		{"f", p_fd},
 		{"i", p_di},
 		{"o", p_o},
 		{"%", p_p},
@@ -87,7 +86,7 @@ void flags_reset(flag_list *flagz)
  * @flagz: our flag_list variable
  * @i: iderate whe the op is found
  */
-void flag_set(char *c, flag_list *flagz, int *i)
+void flag_set(const char *c, flag_list *flagz, int *i)
 {
 	switch (*c)
 	{
