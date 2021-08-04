@@ -76,8 +76,7 @@ void p_u(va_list *argz, unsigned long *D, flag_list *flagz)
 void p_Xx(va_list *argz, unsigned long *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
-	int digit, result;
-	char hex_val;
+	int digit;
 
 	if ((*flagz).h)
 	{

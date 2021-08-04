@@ -8,9 +8,9 @@ unsigned long print_all(const char * const format, ...)
 {
 	int i = 0;
 	void (*funk)(va_list *, unsigned long *, flag_list *);
-	char ch2str[2];
 	unsigned long D = 0;
 	va_list args;
+
 	/* establish flags variable and set initial values */
 	flag_list flags;
 
@@ -71,12 +71,12 @@ void (*get_funky(char s))(va_list *, unsigned long *, flag_list *)
 }
 /**
  * flags_reset - set the print modifiers to zero
- * @flags: a flag_list with values to reset
+ * @flagz: a flag_list with values to reset
  * Return: void
  */
 void flags_reset(flag_list *flagz)
 {
-	(*flagz).op = 0;	
+	(*flagz).op = 0;
 	(*flagz).h = 0;
 	(*flagz).l = 0;
 	(*flagz).X = 0;
@@ -85,20 +85,29 @@ void flags_reset(flag_list *flagz)
  * flag_setter - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
+ * @i: iderate whe the op is found
  */
-void flag_set(char c, flag_list *flagz, int *i)
+void flag_set(char *c, flag_list *flagz, int *i)
 {
-	switch (c)
+	switch (*c)
 	{
-	case '%':
+	case '%': {
 		(*flagz).op = 1;
 		++*i;
-	case 'h':
+		flag_set(c + 1, flagz, i);
+		break;
+	}
+	case 'h': {
 		(*flagz).h = 1;
-	case 'l':
+		break;
+	}
+	case 'l': {
 		(*flagz).l = 1;
-	case 'X':
+		break;
+	}
+	case 'X': {
 		(*flagz).X = 1;
+	}
 	}
 }
 /**
@@ -115,4 +124,22 @@ int _strcmp(char *s1, char *s2)
 		if (s1[i] == '\0')
 			return (0);
 	return (s1[i] - s2[i]);
+}
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+        /* check rtrn val of func to confirm success */
+        return (write(1, &c, 1));
+}
+/* for testing */
+int main(void)
+{
+	int d = 327670;
+	print_all("my balls%c,%%,%i,%s,%d,%u,%hd,%b,%o,%X", 'p', 0, "stuff", -214, UINT_MAX, d, 9, -214, 175);
+	return (0);
 }

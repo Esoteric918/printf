@@ -1,12 +1,12 @@
 #ifndef _HOLBERTON_H_
 #define _HOLBERTON_H_
 
-#include <math.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-/*#include <unistd.h>*/
+#include <unistd.h>
 
 typedef struct conversion_specifier
 {
@@ -34,7 +34,7 @@ typedef struct format_specifiers
 /* prototypes */
 int _putchar(char c);
 int _strcmp(char *s1, char *s2);
-void flag_set(char, flag_list *, int *);
+void flag_set(char *, flag_list *, int *);
 void flags_reset(flag_list *);
 void prnt_hlpr(int, int, unsigned long *);
 unsigned long print_all(const char * const format, ...);
@@ -51,15 +51,5 @@ void p_u(va_list *, unsigned long *, flag_list *);
 void p_Xx(va_list *, unsigned long *, flag_list *);
 
 
-/**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int _putchar(char c)
-{
-	/* check rtrn val of func to confirm success */
-	return (write(1, &c, 1));
-}
+
 #endif
