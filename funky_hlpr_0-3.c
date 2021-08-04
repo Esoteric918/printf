@@ -110,6 +110,8 @@ void p_s(va_list *argz, int *D, flag_list *flagz)
 	char *str = va_arg(*argz, char *);
 
 	(void)(flagz);
+	if (str == 0)
+		str = "(null)";
 	if (str)
 	{
 		for (i = 0; str[i]; ++i, ++*D)
