@@ -8,8 +8,8 @@
  */
 void p_o(va_list *argz, int *D, flag_list *flagz)
 {
-	int val = va_arg(*argz, int);
-	int digit;
+	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int digit;
 
 	if ((*flagz).h)
 	{
@@ -69,8 +69,8 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
  */
 void p_Xx(va_list *argz, int *D, flag_list *flagz)
 {
-	int val = va_arg(*argz, int);
-	int digit;
+	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int digit;
 
 	if ((*flagz).h)
 	{

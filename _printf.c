@@ -1,4 +1,9 @@
 #include "holberton.h"
+#include <limits.h>
+#include <stdio.h>
+#include "funky_hlpr_0-3.c"
+#include "funky_hlpr_4.c"
+#include "str_funks.c"
 
 /**
  * _printf - print the numbers passed to func with separator
@@ -125,16 +130,15 @@ int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 				(*flagz).X = 1;
 		}
 	}
-if ((*flagz).op && *(c + 1) == '\0')
-return (1);
-for (j = 0; ops[j]; ++j)
-if (*c == ops[j])
-return (0);
+	if ((*flagz).op && *(c + 1) == '\0')
+		return (1);
+	for (j = 0; ops[j]; ++j)
+		if (*c == ops[j])
+			return (0);
 if ((*flagz).op && *c != ' ' && ((*flagz).h || (*flagz).l || (*flagz).X))
-{
-*D += _putchar('%');
-flags_reset(flagz);
-return (0);
-}
-return (0);
+	{
+		*D += _putchar('%');
+		flags_reset(flagz);
+	}
+	return (0);
 }
