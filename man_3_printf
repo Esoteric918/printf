@@ -51,15 +51,13 @@ _printf = program that prints to terminal from input enter by user with the foll
 	{"x", p_Xx}, print value in Base16, hexidecimal
 	{"X", p_Xx} print value in Base16, hexidecimal
 .SH FLAGS
-.P _prinf takes the folloing flags for output
+.P _prinf takes the folloing modifers to specifiers
 
     
 		Spec:  d ,i          u, o, x, X
 	flagz.h =  short int  |	unsigned short int
 	flagz.l = long int    |  long int
 	
-	
-	flagz.X = 0;
 	Then set with the following funk:
 	void flag_set(const char *c, flag_list *flagz, int *i)	
 	void flag_set(const char *, flag_list *, int *);
