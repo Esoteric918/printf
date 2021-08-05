@@ -28,7 +28,6 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 	{
 		*D += _putchar('-');
 		val *= -1;
-		
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
@@ -58,7 +57,7 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
 		*D += _putchar((val / digit) + '0');
-		
+
 	flags_reset(flagz);
 }
 /**

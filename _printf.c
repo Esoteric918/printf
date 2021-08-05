@@ -16,11 +16,11 @@ int _printf(const char * const format, ...)
 	if (format == NULL)
 		return (-1);
 
-	for (i = 0; format[i]; i++);
+	for (i = 0; format[i]; i++)
+	;
 	if (format[i - 1] == '%' || i == 0)
 		return (0);
 	i = 0;
-
 	/* set initial flags */
 	flags_reset(&flags);
 	va_start(args, format);
@@ -97,6 +97,7 @@ void flags_reset(flag_list *flagz)
  * @c: current char in format
  * @flagz: our flag_list variable
  * @i: iterator where the op is found
+ * @D: count of printed chars
  * Return: 1 if % is last char in c string, else 0
  */
 int flag_set(const char *c, flag_list *flagz, int *i, int *D)
@@ -112,42 +113,28 @@ int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 			return (1);
 		flag_set(c + 1, flagz, i, D);
 	}
-	while ((*flagz).op && mods[j])
+	for (j = 0; (*flagz).op && mods[j]; ++j)
 	{
 		if (mods[j] == *c)
 		{
 			if (j == 0)
-			{
 				(*flagz).h = 1;
-				++flag;
-			}
 			else if (j == 1)
-			{
 				(*flagz).l = 1;
-				++flag;
-			}	
 			else if (j == 2)
-			{
 				(*flagz).X = 1;
-				++flag;
-			}
 		}
-		++j;
 	}
-	if ((*flagz).op && *(c + 1) == '\0')
-		return (1);
-	j = 0;
-	while (ops[j])
-	{
-		if (*c == ops[j])
-			return (0);
-		++j;
-	}
-	if ((*flagz).op && *c != ' ' && flag == 0)
-	{
-		*D += _putchar('%');
-		flags_reset(flagz);
-		return (0);
-	}
-	return (0);
+if ((*flagz).op && *(c + 1) == '\0')
+return (1);
+for (j = 0; ops[j]; ++j)
+if (*c == ops[j])
+return (0);
+if ((*flagz).op && *c != ' ' && ((*flagz).h || (*flagz).l || (*flagz).X))
+{
+*D += _putchar('%');
+flags_reset(flagz);
+return (0);
+}
+return (0);
 }
