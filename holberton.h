@@ -7,6 +7,13 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+/**
+ * struct conversion_specifier - for identifying conversion flags
+ * @op: to identify the operations variable %
+ * @h: for short ints
+ * @l: for long ints
+ * @X: for capital hex
+ */
 typedef struct conversion_specifier
 {
 	int op;

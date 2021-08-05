@@ -1,4 +1,5 @@
 #include "holberton.h"
+
 /**
  * _printf - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
@@ -15,11 +16,11 @@ int _printf(const char * const format, ...)
 	if (format == NULL)
 		return (-1);
 
-	for (i = 0; format[i]; i++);
+	for (i = 0; format[i]; i++)
+	;
 	if (format[i - 1] == '%' || i == 0)
 		return (0);
 	i = 0;
-
 	/* set initial flags */
 	flags_reset(&flags);
 	va_start(args, format);
@@ -27,10 +28,13 @@ int _printf(const char * const format, ...)
 	{
 		/* identify and set flags, or exit returning chars printed */
 		if (flag_set(&format[i], &flags, &i, &D))
-			return (D);
+			return (-1);
 		/* if not for flags.op */
 		if (!flags.op)
+		{
 			D += _putchar(format[i]);
+			flags_reset(&flags);
+		}
 		else
 		{
 			funk = get_funky(format[i]);
@@ -41,6 +45,7 @@ int _printf(const char * const format, ...)
 		++i;
 	}
 	va_end(args);
+	flags_reset(&flags);
 	return (D);
 }
 /**
@@ -92,43 +97,44 @@ void flags_reset(flag_list *flagz)
  * @c: current char in format
  * @flagz: our flag_list variable
  * @i: iterator where the op is found
+ * @D: count of printed chars
  * Return: 1 if % is last char in c string, else 0
  */
 int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 {
-	switch (*c)
+	char *mods = "hlX", *ops = "bcdio%suxX";
+	int j = 0;
+
+	if (!(*flagz).op && *c == '%')
 	{
-	case '%':
-		if (!(*flagz).op)
+		(*flagz).op = 1;
+		++*i;
+		if (*(c + 1) == '\0')
+			return (1);
+		flag_set(c + 1, flagz, i, D);
+	}
+	for (j = 0; (*flagz).op && mods[j]; ++j)
+	{
+		if (mods[j] == *c)
 		{
-			(*flagz).op = 1;
-			++*i;
-			if (*(c + 1) == '\0')
-				return (1);
-			else if (*(c + 1) == ' ')
-			{
-				(*flagz).op = 0;
-				break;
-			}
-			flag_set(c + 1, flagz, i, D);
-		}
-		break;
-	case 'h':
-		(*flagz).h = 1;
-		break;
-	case 'l':
-		(*flagz).l = 1;
-		break;
-	case 'X':
-		(*flagz).X = 1;
-		break;
-	default:
-		if ((*flagz).op && get_funky(*c) == NULL)
-		{
-			*D += _putchar('%');
-			flags_reset(flagz);
+			if (j == 0)
+				(*flagz).h = 1;
+			else if (j == 1)
+				(*flagz).l = 1;
+			else if (j == 2)
+				(*flagz).X = 1;
 		}
 	}
-
-	return (0);
+if ((*flagz).op && *(c + 1) == '\0')
+return (1);
+for (j = 0; ops[j]; ++j)
+if (*c == ops[j])
+return (0);
+if ((*flagz).op && *c != ' ' && ((*flagz).h || (*flagz).l || (*flagz).X))
+{
+*D += _putchar('%');
+flags_reset(flagz);
+return (0);
+}
+return (0);
 }
