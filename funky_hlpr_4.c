@@ -8,8 +8,8 @@
  */
 void p_o(va_list *argz, int *D, flag_list *flagz)
 {
-	int val = va_arg(*argz, int);
-	int digit;
+	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int digit;
 
 	if ((*flagz).h)
 	{
@@ -69,8 +69,8 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
  */
 void p_Xx(va_list *argz, int *D, flag_list *flagz)
 {
-	int val = va_arg(*argz, int);
-	int digit;
+	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int digit;
 
 	if ((*flagz).h)
 	{
@@ -109,31 +109,11 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
  */
 void prnt_hlpr(int result, int caps, int *D)
 {
-	if (result == 10 && caps)
-		_putchar('A');
-	else if (result == 10)
-		_putchar('a');
-	else if (result == 11 && caps)
-		_putchar('B');
-	else if (result == 11)
-		_putchar('b');
-	else if (result == 12 && caps)
-		_putchar('C');
-	else if (result == 12)
-		_putchar('c');
-	else if (result == 13 && caps)
-		_putchar('D');
-	else if (result == 13)
-		_putchar('d');
-	else if (result == 14 && caps)
-		_putchar('E');
-	else if (result == 14)
-		_putchar('e');
-	else if (result == 15 && caps)
-		_putchar('F');
-	else if (result == 15)
-		_putchar('f');
+	char val_U[] = "0123456789ABCDEF";
+	char val_L[] = "0123456789abcdef";
+
+	if (caps)
+		*D += _putchar(val_U[result]);
 	else
-		_putchar(result + '0');
-	++*D;
+		*D += _putchar(val_L[result]);
 }
