@@ -14,7 +14,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
-		if (val > 32767 || val < -32768)
+		if (val > (unsigned int)32767)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
@@ -22,12 +22,6 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 			flags_reset(flagz);
 			return;
 		}
-	}
-	/* check for negative val */
-	if (val < 0)
-	{
-		*D += _putchar('-');
-		val *= -1;
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
@@ -75,7 +69,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
-		if (val > 32767 || val < -32768)
+		if (val > (unsigned int)32767)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
@@ -83,12 +77,6 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 			flags_reset(flagz);
 			return;
 		}
-	}
-	/* check for negative val */
-	if (val < 0)
-	{
-		*D += _putchar('-');
-		val *= -1;
 	}
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 16; digit *= 16)
@@ -116,4 +104,14 @@ void prnt_hlpr(int result, int caps, int *D)
 		*D += _putchar(val_U[result]);
 	else
 		*D += _putchar(val_L[result]);
+}
+void p_buffer(char *buff, int  *D)
+{
+	int i;
+
+	for (i = 0; buff[i]; ++i)
+	{
+		*D += _putchar(buff[i]);
+	}
+
 }
