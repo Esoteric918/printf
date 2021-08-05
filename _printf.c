@@ -103,7 +103,7 @@ void flags_reset(flag_list *flagz)
 int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 {
 	char *mods = "hlX", *ops = "bcdio%suxX";
-	int j = 0, flag = 0;
+	int j = 0;
 
 	if (!(*flagz).op && *c == '%')
 	{
