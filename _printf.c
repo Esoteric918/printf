@@ -1,10 +1,6 @@
 #include "holberton.h"
 #include <limits.h>
 #include <stdio.h>
-#include "funky_hlpr_0-3.c"
-#include "funky_hlpr_4.c"
-#include "str_funks.c"
-
 /**
  * _printf - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
@@ -12,27 +8,28 @@
  */
 int _printf(const char * const format, ...)
 {
-	int i = 0, D = 0;
+	int i = 0, D = 0, bcnt = 0;
 	void (*funk)(va_list *, int *, flag_list *);
+	char *buffr = malloc(2000);
 	va_list args;
 	flag_list flags;
 
 	/* check if format exists */
 	if (format == NULL)
 		return (-1);
-
+/*
 	for (i = 0; format[i]; i++)
 	;
-	if (format[i - 1] == '%' || i == 0)
+	if (i == 0)
 		return (0);
-	i = 0;
+	i = 0;*/
 	/* set initial flags */
 	flags_reset(&flags);
 	va_start(args, format);
 	while (format && format[i])
 	{
 		/* identify and set flags, or exit returning chars printed */
-		if (flag_set(&format[i], &flags, &i, &D))
+		if (flag_set(&format[i], &flags, &i, &D, buffr, &bcnt))
 			return (-1);
 		/* if not for flags.op */
 		if (!flags.op)
@@ -51,6 +48,7 @@ int _printf(const char * const format, ...)
 	}
 	va_end(args);
 	flags_reset(&flags);
+	free(buffr);
 	return (D);
 }
 /**
@@ -105,18 +103,16 @@ void flags_reset(flag_list *flagz)
  * @D: count of printed chars
  * Return: 1 if % is last char in c string, else 0
  */
-int flag_set(const char *c, flag_list *flagz, int *i, int *D)
+int flag_set(const char *c, flag_list *flagz, int *i, int *D, char *buffr, int *bcnt)
 {
-	char *mods = "hlX", *ops = "bcdio%suxX";
-	int j = 0;
+	char *mods = "hlX" /* *ops = "bcdio%suxX" */;
+	int j;
 
 	if (!(*flagz).op && *c == '%')
 	{
 		(*flagz).op = 1;
+		++c;
 		++*i;
-		if (*(c + 1) == '\0')
-			return (1);
-		flag_set(c + 1, flagz, i, D);
 	}
 	for (j = 0; (*flagz).op && mods[j]; ++j)
 	{
@@ -130,15 +126,23 @@ int flag_set(const char *c, flag_list *flagz, int *i, int *D)
 				(*flagz).X = 1;
 		}
 	}
-	if ((*flagz).op && *(c + 1) == '\0')
-		return (1);
-	for (j = 0; ops[j]; ++j)
-		if (*c == ops[j])
-			return (0);
-if ((*flagz).op && *c != ' ' && ((*flagz).h || (*flagz).l || (*flagz).X))
+	if ((*flagz).op && get_funky(*c))
+		return (0);
+
+	if ((*flagz).op && (*c + 1) == '\0')
 	{
-		*D += _putchar('%');
+		*(buffr + *bcnt) = '\0';
+		/* print the buffer */
+		p_buffer(buffr, D);
 		flags_reset(flagz);
+		return (1);
+	}
+	else if ((*flagz).op)
+	{
+		*(buffr + (*bcnt)) = *c;
+		++*i;
+		++*bcnt;
+		flag_set((c + 1), flagz, i, D, buffr, bcnt);
 	}
 	return (0);
 }

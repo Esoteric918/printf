@@ -36,7 +36,7 @@ typedef struct format_specifiers
 /* prototypes */
 int _putchar(char c);
 int _strcmp(char *, char *);
-int flag_set(const char *, flag_list *, int *, int *);
+int flag_set(const char *, flag_list *, int *, int *, char *, int *);
 void flags_reset(flag_list *);
 void prnt_hlpr(int, int, int *);
 int _printf(const char * const format, ...);
@@ -50,5 +50,6 @@ void p_p(va_list *, int *, flag_list *);
 void p_s(va_list *, int *, flag_list *);
 void p_u(va_list *, int *, flag_list *);
 void p_Xx(va_list *, int *, flag_list *);
+void p_buffer(char *buff, int  *D);
 
 #endif
