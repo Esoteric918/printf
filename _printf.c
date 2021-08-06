@@ -92,48 +92,50 @@ void flags_reset(flag_list *flagz)
 /**
  * flag_check - sets the flags for the current char
  * @c: current char in format
- * @flagz: our flag_list variable
+ * @f: our flag_list variable
  * @i: iterator where the op is found
  * @D: count of printed chars
+ * @bfr: temp holder for chars, may not need now
+ * bi: iterator for bfr
  * Return: 1 if % is last char in c string, else 0
  */
-int flag_check(const char *c, flag_list *flagz, int *i, int *D, char *buffr, int *bcnt)
+int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)
 {
 	int f_test = 0;
 
-	if (!(*flagz).op && *c == '%') /* check for op char */
+	if (!(*f).op && *c == '%') /* check for op char */
 	{
-		(*flagz).op = 1;
+		(*f).op = 1;
 		++c;
 		++*i;
 	}
-	f_test = flag_set(c, flagz);
+	f_test = flag_set(c, f);
 
-	if ((*flagz).op && get_funky(*c))
+	if ((*f).op && get_funky(*c))
 		return (0);
 
-	if ((*flagz).op && (*c) == '\0')
+	if ((*f).op && (*c) == '\0')
 	{
-		*(buffr + *bcnt) = '\0';
-		*bcnt = 0;
+		*(bfr + *bi) = '\0';
+		*bi = 0;
 		/* print the buffer */
-		p_buffer(buffr, D);
-		flags_reset(flagz);
+		p_buffer(bfr, D);
+		flags_reset(f);
 		return (1);
 	}
-	else if ((*flagz).op && (*c == ' ' || f_test))
+	else if ((*f).op && (*c == ' ' || f_test))
 	{
-		*(buffr + (*bcnt)) = *c;
+		*(bfr + (*bi)) = *c;
 		++*i;
-		++*bcnt;
-		flag_check((c + 1), flagz, i, D, buffr, bcnt);
+		++*bi;
+		flag_check((c + 1), f, i, D, bfr, bi);
 	}
 	else if (!f_test)
-		(*flagz).op = 0;
+		(*f).op = 0;
 	return (0);
 }
 /**
- * flag_check - sets the flags for the current char
+ * flag_set - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
  * Return: 1 if a flag was set

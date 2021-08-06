@@ -14,7 +14,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
-		if (val > (unsigned int)65535)
+		if (val > USHRT_MAX)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
@@ -69,7 +69,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
-		if (val > (unsigned int)65535)
+		if (val > USHRT_MAX)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
