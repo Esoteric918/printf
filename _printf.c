@@ -96,7 +96,7 @@ void flags_reset(flag_list *flagz)
  * @i: iterator where the op is found
  * @D: count of printed chars
  * @bfr: temp holder for chars, may not need now
- * bi: iterator for bfr
+ * @bi: iterator for bfr
  * Return: 1 if % is last char in c string, else 0
  */
 int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)

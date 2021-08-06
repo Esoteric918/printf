@@ -105,6 +105,12 @@ void prnt_hlpr(int result, int caps, int *D)
 	else
 		*D += _putchar(val_L[result]);
 }
+/**
+ * p_buffer - print buffer
+ * @buff: buffer to print
+ * @D: count of chars printed
+ * Return: void
+ */
 void p_buffer(char *buff, int  *D)
 {
 	int i;
