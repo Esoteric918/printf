@@ -1,6 +1,5 @@
 #include "holberton.h"
-#include <limits.h>
-#include <stdio.h>
+
 /**
  * _printf - print the numbers passed to func with separator
  * @format: a string to print with various identifiers to inject variables
@@ -17,25 +16,20 @@ int _printf(const char * const format, ...)
 	/* check if format exists */
 	if (format == NULL)
 		return (-1);
-/*
-	for (i = 0; format[i]; i++)
-	;
-	if (i == 0)
-		return (0);
-	i = 0;*/
-	/* set initial flags */
+
 	flags_reset(&flags);
 	va_start(args, format);
 	while (format && format[i])
 	{
 		/* identify and set flags, or exit returning chars printed */
-		if (flag_set(&format[i], &flags, &i, &D, buffr, &bcnt))
+		if (flag_check(&format[i], &flags, &i, &D, buffr, &bcnt))
 			return (-1);
 		/* if not for flags.op */
 		if (!flags.op)
 		{
 			D += _putchar(format[i]);
 			flags_reset(&flags);
+			*buffr = '\0';
 		}
 		else
 		{
@@ -96,53 +90,71 @@ void flags_reset(flag_list *flagz)
 	(*flagz).X = 0;
 }
 /**
- * flag_set - sets the flags for the current char
+ * flag_check - sets the flags for the current char
  * @c: current char in format
  * @flagz: our flag_list variable
  * @i: iterator where the op is found
  * @D: count of printed chars
  * Return: 1 if % is last char in c string, else 0
  */
-int flag_set(const char *c, flag_list *flagz, int *i, int *D, char *buffr, int *bcnt)
+int flag_check(const char *c, flag_list *flagz, int *i, int *D, char *buffr, int *bcnt)
 {
-	char *mods = "hlX" /* *ops = "bcdio%suxX" */;
-	int j;
+	int f_test = 0;
 
-	if (!(*flagz).op && *c == '%')
+	if (!(*flagz).op && *c == '%') /* check for op char */
 	{
 		(*flagz).op = 1;
 		++c;
 		++*i;
 	}
-	for (j = 0; (*flagz).op && mods[j]; ++j)
-	{
-		if (mods[j] == *c)
-		{
-			if (j == 0)
-				(*flagz).h = 1;
-			else if (j == 1)
-				(*flagz).l = 1;
-			else if (j == 2)
-				(*flagz).X = 1;
-		}
-	}
+	f_test = flag_set(c, flagz);
+
 	if ((*flagz).op && get_funky(*c))
 		return (0);
 
-	if ((*flagz).op && (*c + 1) == '\0')
+	if ((*flagz).op && (*c) == '\0')
 	{
 		*(buffr + *bcnt) = '\0';
+		*bcnt = 0;
 		/* print the buffer */
 		p_buffer(buffr, D);
 		flags_reset(flagz);
 		return (1);
 	}
-	else if ((*flagz).op)
+	else if ((*flagz).op && (*c == ' ' || f_test))
 	{
 		*(buffr + (*bcnt)) = *c;
 		++*i;
 		++*bcnt;
-		flag_set((c + 1), flagz, i, D, buffr, bcnt);
+		flag_check((c + 1), flagz, i, D, buffr, bcnt);
 	}
+	else if (!f_test)
+		(*flagz).op = 0;
+	return (0);
+}
+/**
+ * flag_check - sets the flags for the current char
+ * @c: current char in format
+ * @flagz: our flag_list variable
+ * Return: 1 if a flag was set
+ */
+int flag_set(const char *c, flag_list *flagz)
+{
+	char *mods = " hlX";
+	int i;
+
+	/* stop loop when char match */
+	for (i = 0; (*flagz).op && mods[i] != *c; ++i)
+	;
+	if (i == 1)
+		(*flagz).h = 1;
+	else if (i == 2)
+		(*flagz).l = 1;
+	else if (i == 3)
+		(*flagz).X = 1;
+
+	if (i < 4 && i != 0)
+		return (1);
+
 	return (0);
 }

@@ -36,7 +36,8 @@ typedef struct format_specifiers
 /* prototypes */
 int _putchar(char c);
 int _strcmp(char *, char *);
-int flag_set(const char *, flag_list *, int *, int *, char *, int *);
+int flag_check(const char *, flag_list *, int *, int *, char *, int *);
+int flag_set(const char *c, flag_list *flagz);
 void flags_reset(flag_list *);
 void prnt_hlpr(int, int, int *);
 int _printf(const char * const format, ...);
