@@ -13,12 +13,7 @@ int _printf(const char * const format, ...)
 	va_list args;
 	flag_list flags;
 
-	/* check if format exists */
-	if (format == NULL)
-		return (-1);
-
-	/* check malloc */
-	if (!buffr)
+	if (!format || !buffr) /* check if format and malloc exists */
 		return (-1);
 
 	flags_reset(&flags, buffr);
@@ -86,9 +81,10 @@ void (*get_funky(char s))(va_list *, int *, flag_list *)
 /**
  * flags_reset - set the print modifiers to zero
  * @flagz: a flag_list with values to reset
+ * @buffr: temp storage of format chars
  * Return: void
  */
-void flags_reset(flag_list *flagz, char* buffr)
+void flags_reset(flag_list *flagz, char *buffr)
 {
 	(*flagz).op = 0;
 	(*flagz).h = 0;
