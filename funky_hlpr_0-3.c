@@ -42,7 +42,7 @@ void p_c(va_list *argz, int *D, flag_list *flagz)
 void p_di(va_list *argz, int *D, flag_list *flagz)
 {
 	int val = va_arg(*argz, int);
-	int digit;
+	int digit, too_neg = 0;
 
 	if ((*flagz).h)
 	{
@@ -51,14 +51,16 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
-
 			return;
 		}
 	}
-	/* check for negative val */
+	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
 	{
 		*D += _putchar('-');
+		if (val == INT_MIN)
+			val += ++too_neg;
+		
 		val *= -1;
 	}
 	/* find the size of int */
@@ -67,7 +69,10 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
 	{
-		*D += _putchar((val / digit) + '0');
+		if (digit == 1 && too_neg)
+			*D += _putchar((val / digit) + too_neg + '0');	
+		else	
+			*D += _putchar((val / digit) + '0');
 	}
 }
 /**
