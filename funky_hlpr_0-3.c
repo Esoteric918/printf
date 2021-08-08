@@ -60,7 +60,6 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 		*D += _putchar('-');
 		if (val == INT_MIN)
 			val += ++too_neg;
-		
 		val *= -1;
 	}
 	/* find the size of int */
@@ -70,8 +69,8 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	for (; digit >= 1; val %= digit, digit /= 10)
 	{
 		if (digit == 1 && too_neg)
-			*D += _putchar((val / digit) + too_neg + '0');	
-		else	
+			*D += _putchar((val / digit) + too_neg + '0');
+		else
 			*D += _putchar((val / digit) + '0');
 	}
 }
