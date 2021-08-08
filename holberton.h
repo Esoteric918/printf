@@ -12,6 +12,7 @@
  * @op: to identify the operations variable %
  * @h: for short ints
  * @l: for long ints
+ * @sp: if a space is before the op
  * @X: for capital hex
  */
 typedef struct conversion_specifier
@@ -19,6 +20,7 @@ typedef struct conversion_specifier
 	int op;
 	int h;
 	int l;
+	int sp;
 	int X;
 } flag_list;
 
@@ -37,8 +39,8 @@ typedef struct format_specifiers
 int _putchar(char c);
 int _strcmp(char *, char *);
 int flag_check(const char *, flag_list *, int *, int *, char *, int *);
-int flag_set(const char *c, flag_list *flagz);
-void flags_reset(flag_list *);
+int flag_set(const char *, flag_list *);
+void flags_reset(flag_list *, char *);
 void prnt_hlpr(int, int, int *);
 int _printf(const char * const format, ...);
 void (*get_funky(char s))(va_list *, int *, flag_list *);

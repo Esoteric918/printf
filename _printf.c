@@ -9,7 +9,7 @@ int _printf(const char * const format, ...)
 {
 	int i = 0, D = 0, bcnt = 0;
 	void (*funk)(va_list *, int *, flag_list *);
-	char *buffr = malloc(2000);
+	char *buffr = malloc(1024);
 	va_list args;
 	flag_list flags;
 
@@ -17,7 +17,11 @@ int _printf(const char * const format, ...)
 	if (format == NULL)
 		return (-1);
 
-	flags_reset(&flags);
+	/* check malloc */
+	if (!buffr)
+		return (-1);
+
+	flags_reset(&flags, buffr);
 	va_start(args, format);
 	while (format && format[i])
 	{
@@ -28,20 +32,22 @@ int _printf(const char * const format, ...)
 		if (!flags.op)
 		{
 			D += _putchar(format[i]);
-			flags_reset(&flags);
-			*buffr = '\0';
+			flags_reset(&flags, buffr);
 		}
 		else
 		{
 			funk = get_funky(format[i]);
 			/* check if func != NULL */
 			if (funk != NULL)
+			{
 				funk(&args, &D, &flags);
+				flags_reset(&flags, buffr);
+			}
 		}
 		++i;
 	}
 	va_end(args);
-	flags_reset(&flags);
+	flags_reset(&flags, buffr);
 	free(buffr);
 	return (D);
 }
@@ -82,12 +88,15 @@ void (*get_funky(char s))(va_list *, int *, flag_list *)
  * @flagz: a flag_list with values to reset
  * Return: void
  */
-void flags_reset(flag_list *flagz)
+void flags_reset(flag_list *flagz, char* buffr)
 {
 	(*flagz).op = 0;
 	(*flagz).h = 0;
 	(*flagz).l = 0;
+	(*flagz).sp = 0;
 	(*flagz).X = 0;
+
+	buffr[0] = '\0';
 }
 /**
  * flag_check - sets the flags for the current char
@@ -108,19 +117,23 @@ int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)
 		(*f).op = 1;
 		++c;
 		++*i;
+		*bfr = '%';
+		++*bi;
+		if (*c == '\0')
+			return (1);
 	}
 	f_test = flag_set(c, f);
 
 	if ((*f).op && get_funky(*c))
 		return (0);
 
-	if ((*f).op && (*c) == '\0')
+	if ((*f).op && *c == '\0')
 	{
 		*(bfr + *bi) = '\0';
 		*bi = 0;
 		/* print the buffer */
 		p_buffer(bfr, D);
-		flags_reset(f);
+		flags_reset(f, bfr);
 		return (1);
 	}
 	else if ((*f).op && (*c == ' ' || f_test))
@@ -131,7 +144,12 @@ int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)
 		flag_check((c + 1), f, i, D, bfr, bi);
 	}
 	else if (!f_test)
-		(*f).op = 0;
+	{
+		*(bfr + *bi) = '\0';
+		*bi = 0;
+		p_buffer(bfr, D);
+		flags_reset(f, bfr);
+	}
 	return (0);
 }
 /**
@@ -142,7 +160,7 @@ int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)
  */
 int flag_set(const char *c, flag_list *flagz)
 {
-	char *mods = " hlX";
+	char *mods = "_hl X";
 	int i;
 
 	/* stop loop when char match */
@@ -153,9 +171,11 @@ int flag_set(const char *c, flag_list *flagz)
 	else if (i == 2)
 		(*flagz).l = 1;
 	else if (i == 3)
+		(*flagz).sp = 1;
+	else if (i == 4)
 		(*flagz).X = 1;
 
-	if (i < 4 && i != 0)
+	if (i < 5 && i != 0)
 		return (1);
 
 	return (0);

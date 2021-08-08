@@ -18,8 +18,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
-			/* set all values for flag 0 */
-			flags_reset(flagz);
+
 			return;
 		}
 	}
@@ -29,8 +28,6 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 8)
 		*D += _putchar((val / digit) + '0');
-
-	flags_reset(flagz);
 }
 /**
  * p_u - print unsigned integer in Base10
@@ -51,8 +48,6 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
 		*D += _putchar((val / digit) + '0');
-
-	flags_reset(flagz);
 }
 /**
  * p_Xx - print value in Base16, hexidecimal
@@ -73,8 +68,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
-			/* set all values for flag 0 */
-			flags_reset(flagz);
+
 			return;
 		}
 	}
@@ -86,7 +80,6 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	{
 		prnt_hlpr(val / digit, (*flagz).X, D);
 	}
-	flags_reset(flagz);
 }
 /**
  * prnt_hlpr - hex printer

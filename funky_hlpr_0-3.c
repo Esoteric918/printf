@@ -17,8 +17,6 @@ void p_b(va_list *argz, int *D, flag_list *flagz)
 	;
 	for (; digit >= 1; val %= digit, digit /= 2)
 		*D += _putchar((val / digit) + '0');
-
-	flags_reset(flagz);
 }
 /**
  * p_c - print char
@@ -33,8 +31,6 @@ void p_c(va_list *argz, int *D, flag_list *flagz)
 
 	(void)(flagz);
 	*D += _putchar(ch);
-
-	flags_reset(flagz);
 }
 /**
  * p_di - print integer
@@ -56,8 +52,6 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 			*D += _putchar('-');
 			*D += _putchar('1');
 
-			/* set all values for flag 0 */
-			flags_reset(flagz);
 			return;
 		}
 	}
@@ -75,7 +69,6 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	{
 		*D += _putchar((val / digit) + '0');
 	}
-	flags_reset(flagz);
 }
 /**
  * p_p - print %
@@ -90,8 +83,6 @@ void p_p(va_list *argz, int *D, flag_list *flagz)
 	(void)(flagz);
 
 	*D += _putchar('%');
-
-	flags_reset(flagz);
 }
 /**
  * p_s - print string
@@ -111,6 +102,4 @@ void p_s(va_list *argz, int *D, flag_list *flagz)
 
 	for (i = 0; str[i]; ++i, ++*D)
 		_putchar(str[i]);
-
-	flags_reset(flagz);
 }
