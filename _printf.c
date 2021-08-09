@@ -61,10 +61,11 @@ void (*get_funky(char s))(va_list *, int *, flag_list *)
 		{"i", p_di},
 		{"o", p_o},
 		{"%", p_p},
-		{"s", p_s},
+		{"S", p_Ss},		
+		{"s", p_Ss},
 		{"u", p_u},
-		{"x", p_Xx},
 		{"X", p_Xx},
+		{"x", p_Xx},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -89,6 +90,7 @@ void flags_reset(flag_list *flagz, char *buffr)
 	(*flagz).op = 0;
 	(*flagz).h = 0;
 	(*flagz).l = 0;
+	(*flagz).S = 0;
 	(*flagz).sp = 0;
 	(*flagz).X = 0;
 
@@ -156,22 +158,24 @@ int flag_check(const char *c, flag_list *f, int *i, int *D, char *bfr, int *bi)
  */
 int flag_set(const char *c, flag_list *flagz)
 {
-	char *mods = "_hl X";
+	char *mods = "_hlS X";
 	int i;
 
 	/* stop loop when char match */
-	for (i = 0; (*flagz).op && mods[i] != *c; ++i)
+	for (i = 0; (*flagz).op && mods[i] != *c && mods[i]; ++i)
 	;
 	if (i == 1)
 		(*flagz).h = 1;
 	else if (i == 2)
 		(*flagz).l = 1;
 	else if (i == 3)
-		(*flagz).sp = 1;
+		(*flagz).S = 1;
 	else if (i == 4)
+		(*flagz).sp = 1;
+	else if (i == 5)
 		(*flagz).X = 1;
 
-	if (i < 5 && i != 0)
+	if (i < 6 && i != 0)
 		return (1);
 
 	return (0);

@@ -20,6 +20,7 @@ typedef struct conversion_specifier
 	int op;
 	int h;
 	int l;
+	int S;
 	int sp;
 	int X;
 } flag_list;
@@ -50,7 +51,7 @@ void p_c(va_list *, int *, flag_list *);
 void p_di(va_list *, int *, flag_list *);
 void p_o(va_list *, int *, flag_list *);
 void p_p(va_list *, int *, flag_list *);
-void p_s(va_list *, int *, flag_list *);
+void p_Ss(va_list *, int *, flag_list *);
 void p_u(va_list *, int *, flag_list *);
 void p_Xx(va_list *, int *, flag_list *);
 void p_buffer(char *buff, int  *D);

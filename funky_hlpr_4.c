@@ -72,6 +72,8 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
+	if ((*flagz).sp)
+		*D += _putchar(' ');
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 16; digit *= 16)
 	;
@@ -108,9 +110,6 @@ void p_buffer(char *buff, int  *D)
 {
 	int i;
 
-	for (i = 0; buff[i]; ++i)
-	{
-		*D += _putchar(buff[i]);
-	}
-
+	for (i = 0; buff[i]; ++i, ++*D)
+		_putchar(buff[i]);
 }

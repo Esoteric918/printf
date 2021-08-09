@@ -12,6 +12,8 @@ void p_b(va_list *argz, int *D, flag_list *flagz)
 	unsigned int digit = 1;
 
 	(void)(flagz);
+	if ((*flagz).sp)
+		*D += _putchar(' ');
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= 2; digit *= 2)
 	;
@@ -54,6 +56,8 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
+	if ((*flagz).sp)
+		*D += _putchar(' ');
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
 	{
@@ -95,15 +99,30 @@ void p_p(va_list *argz, int *D, flag_list *flagz)
  * @flagz: UNUSED - list of possible print modifiers
  * Return: count of chars from string printed
  */
-void p_s(va_list *argz, int *D, flag_list *flagz)
+void p_Ss(va_list *argz, int *D, flag_list *flagz)
 {
 	unsigned int i;
 	char *str = va_arg(*argz, char *);
 
-	(void)(flagz);
 	if (str == 0)
 		str = "(null)";
 
-	for (i = 0; str[i]; ++i, ++*D)
-		_putchar(str[i]);
+	if ((*flagz).S)
+	{
+		for (i = 0; str[i]; ++i, ++*D)
+			if (str[i] < 32 || str[i] > 126)
+			{
+				*D += _putchar('\\');
+				_putchar('x');
+				prnt_hlpr(str[i] / 16, 1, D);
+				prnt_hlpr(str[i] % 16, 1, D);
+			}
+			else
+				_putchar(str[i]);
+	}
+	else
+	{
+		for (i = 0; str[i]; ++i, ++*D)
+			_putchar(str[i]);
+	}
 }
