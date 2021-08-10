@@ -8,9 +8,14 @@
  */
 void p_o(va_list *argz, int *D, flag_list *flagz)
 {
-	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int val;
 	unsigned int digit;
 
+	if ((*flagz).l)
+	{
+		*D += p_l_uns(argz, 8);
+		return;
+	}
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
@@ -18,10 +23,10 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 		{
 			*D += _putchar('-');
 			*D += _putchar('1');
-
 			return;
 		}
 	}
+	val = va_arg(*argz, unsigned int);
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;

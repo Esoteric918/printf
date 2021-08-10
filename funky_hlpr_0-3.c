@@ -11,7 +11,6 @@ void p_b(va_list *argz, int *D, flag_list *flagz)
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit = 1;
 
-	(void)(flagz);
 	if ((*flagz).sp)
 		*D += _putchar(' ');
 	/* find the size of val */
@@ -43,9 +42,19 @@ void p_c(va_list *argz, int *D, flag_list *flagz)
  */
 void p_di(va_list *argz, int *D, flag_list *flagz)
 {
-	int val = va_arg(*argz, int);
+	int val;
 	int digit, too_neg = 0;
 
+	if ((*flagz).sp)
+		*D += _putchar(' ');
+
+	if ((*flagz).l)
+	{
+		*D += p_l_sgn(argz, 10);
+		return;
+	}
+	/* pull the arg if it isn't a long */
+	val = va_arg(*argz, int);
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
@@ -56,8 +65,6 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
-	if ((*flagz).sp)
-		*D += _putchar(' ');
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
 	{
