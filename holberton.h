@@ -49,14 +49,14 @@ void (*get_funky(char s))(va_list *, int *, flag_list *);
 void p_b(va_list *, int *, flag_list *);
 void p_c(va_list *, int *, flag_list *);
 void p_di(va_list *, int *, flag_list *);
-int p_l_sgn(va_list *, long int, int);
-int p_l_uns(va_list *, unsigned long int, int);
+int p_l_sgn(va_list *, long int, flag_list *);
+int p_l_uns(va_list *, unsigned long int, flag_list *);
 void p_o(va_list *, int *, flag_list *);
 void p_p(va_list *, int *, flag_list *);
 void p_Ss(va_list *, int *, flag_list *);
 void p_u(va_list *, int *, flag_list *);
 void p_Xx(va_list *, int *, flag_list *);
-void p_hex_hlpr(int, int, int *);
+int p_hex_hlpr(int, int);
 void p_buffer(char *, int  *);
 
 

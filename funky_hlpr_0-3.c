@@ -47,7 +47,7 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_sgn(argz, 10, (*flagz).sp);
+		*D += p_l_sgn(argz, 10, flagz);
 		return;
 	}
 	/* pull the arg if it isn't a long */
@@ -118,8 +118,8 @@ void p_Ss(va_list *argz, int *D, flag_list *flagz)
 			{
 				*D += _putchar('\\');
 				_putchar('x');
-				p_hex_hlpr(str[i] / 16, 1, D);
-				p_hex_hlpr(str[i] % 16, 1, D);
+				*D += p_hex_hlpr(str[i] / 16, 1);
+				*D += p_hex_hlpr(str[i] % 16, 1);
 			}
 			else
 				_putchar(str[i]);

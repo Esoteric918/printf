@@ -13,7 +13,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 8, (*flagz).sp);
+		*D += p_l_uns(argz, 8, flagz);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
@@ -50,7 +50,7 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 10, (*flagz).sp);
+		*D += p_l_uns(argz, 10, flagz);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
@@ -77,7 +77,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 16, (*flagz).sp);
+		*D += p_l_uns(argz, 16, flagz);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
@@ -100,7 +100,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 16)
 	{
-		p_hex_hlpr(val / digit, (*flagz).X, D);
+		*D += p_hex_hlpr(val / digit, (*flagz).X);
 	}
 }
 /**
@@ -110,15 +110,19 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
  * @D: count of chars printed
  * Return: void
  */
-void p_hex_hlpr(int result, int caps, int *D)
+int p_hex_hlpr(int result, int caps)
 {
+	int count = 0;
+
 	char val_U[] = "0123456789ABCDEF";
 	char val_L[] = "0123456789abcdef";
 
 	if (caps)
-		*D += _putchar(val_U[result]);
+		count += _putchar(val_U[result]);
 	else
-		*D += _putchar(val_L[result]);
+		count += _putchar(val_L[result]);
+
+	return (0);
 }
 /**
  * p_buffer - print buffer
