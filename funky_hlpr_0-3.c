@@ -118,8 +118,8 @@ void p_Ss(va_list *argz, int *D, flag_list *flagz)
 			{
 				*D += _putchar('\\');
 				_putchar('x');
-				prnt_hlpr(str[i] / 16, 1, D);
-				prnt_hlpr(str[i] % 16, 1, D);
+				p_hex_hlpr(str[i] / 16, 1, D);
+				p_hex_hlpr(str[i] % 16, 1, D);
 			}
 			else
 				_putchar(str[i]);
