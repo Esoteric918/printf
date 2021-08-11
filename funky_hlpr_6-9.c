@@ -3,7 +3,7 @@
  * p_l_sgn - print a long int
  * @argz: currently long int in va_list
  * @base: the base that we're working in, base2 = binary
- * @sp: flagz.sp value to indicate the need for a space on positive val
+ * @flagz: currently set flags
  * Return: count of chars printed
  */
 int p_l_sgn(va_list *argz, long int base, flag_list *flagz)
@@ -28,7 +28,7 @@ int p_l_sgn(va_list *argz, long int base, flag_list *flagz)
 	for (; digit >= 1; val %= digit, digit /= base)
 	{
 		if (digit == 1 && too_neg)
-			count += p_hex_hlpr(val / digit + too_neg, (*flagz).X);		
+			count += p_hex_hlpr(val / digit + too_neg, (*flagz).X);
 		else
 			count += p_hex_hlpr(val / digit, (*flagz).X);
 	}
@@ -38,7 +38,7 @@ int p_l_sgn(va_list *argz, long int base, flag_list *flagz)
  * p_l_uns - print an unsigned long int
  * @argz: currently unsigned long int in va_list
  * @base: the base that we're working in, base2 = binary
- * @sp: flagz.sp value to indicate the need for a space on positive val
+ * @flagz: currently set flags
  * Return: count of chars printed
  */
 int p_l_uns(va_list *argz, unsigned long int base, flag_list *flagz)

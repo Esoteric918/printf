@@ -107,7 +107,6 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
  * p_hex_hlpr - hex printer
  * @result: value to print
  * @caps: flags.X int indication to print Caps
- * @D: count of chars printed
  * Return: void
  */
 int p_hex_hlpr(int result, int caps)
