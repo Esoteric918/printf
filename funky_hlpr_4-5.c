@@ -27,6 +27,8 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
+	if ((*flagz).sp)
+		*D += _putchar(' ');	
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;
@@ -46,7 +48,8 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 	unsigned int val = va_arg(*argz, unsigned int);
 	unsigned int digit;
 
-	(void)(flagz);
+	if ((*flagz).sp)
+		*D += _putchar(' ');
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= 10; digit *= 10)
 	;

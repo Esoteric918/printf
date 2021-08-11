@@ -5,7 +5,7 @@
  * @base: the base that we're working in, base2 = binary
  * Return: count of chars printed
  */
-int p_l_sgn(va_list *argz, long int base)
+int p_l_sgn(va_list *argz, long int base, int sp)
 {
 	long int val = va_arg(*argz, long int), digit;
 	int count = 0, too_neg = 0;
@@ -18,6 +18,8 @@ int p_l_sgn(va_list *argz, long int base)
 			val += ++too_neg;
 		val *= -1;
 	}
+	if (sp && val >= 0)
+		count += _putchar(' ');
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= base; digit *= base)
 	;
@@ -37,12 +39,14 @@ int p_l_sgn(va_list *argz, long int base)
  * @base: the base that we're working in, base2 = binary
  * Return: count of chars printed
  */
-int p_l_uns(va_list *argz, unsigned long int base)
+int p_l_uns(va_list *argz, unsigned long int base, int sp)
 {
 	unsigned long int val = va_arg(*argz, unsigned long int);
 	unsigned long int digit;
 	int count = 0;
 
+	if (sp)
+		count += _putchar(' ');
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= base; digit *= base)
 	;

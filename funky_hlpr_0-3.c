@@ -45,12 +45,9 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 	int val;
 	int digit, too_neg = 0;
 
-	if ((*flagz).sp)
-		*D += _putchar(' ');
-
 	if ((*flagz).l)
 	{
-		*D += p_l_sgn(argz, 10);
+		*D += p_l_sgn(argz, 10, (*flagz).sp);
 		return;
 	}
 	/* pull the arg if it isn't a long */
@@ -65,6 +62,8 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
+	if ((*flagz).sp && val >= 0)
+		*D += _putchar(' ');	
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
 	{
