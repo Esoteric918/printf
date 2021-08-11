@@ -13,7 +13,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 8);
+		*D += p_l_uns(argz, 8, (*flagz).sp);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
