@@ -27,7 +27,6 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 			return;
 		}
 	}
-	val = va_arg(*argz, unsigned int);
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;
