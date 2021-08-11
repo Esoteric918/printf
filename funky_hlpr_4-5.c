@@ -50,7 +50,7 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 8, (*flagz).sp);
+		*D += p_l_uns(argz, 10, (*flagz).sp);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
@@ -77,7 +77,7 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 
 	if ((*flagz).l)
 	{
-		*D += p_l_uns(argz, 8, (*flagz).sp);
+		*D += p_l_uns(argz, 16, (*flagz).sp);
 		return;
 	}
 	val = va_arg(*argz, unsigned int);
