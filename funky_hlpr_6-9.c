@@ -5,10 +5,11 @@
  * @base: the base that we're working in, base2 = binary
  * Return: count of chars printed
  */
-int p_l_sgn(va_list *argz, int base)
+int p_l_sgn(va_list *argz, long int base)
 {
 	long int val = va_arg(*argz, long int);
-	int digit, too_neg = 0, count = 0;
+	int digit, too_neg = 0;
+	int count = 0;
 
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
@@ -19,10 +20,10 @@ int p_l_sgn(va_list *argz, int base)
 		val *= -1;
 	}
 	/* find the size of val */
-	for (digit = 1; (val / digit) >= 10; digit *= 10)
+	for (digit = 1; (val / digit) >= base; digit *= base)
 	;
 	/* print all the values while walking it back */
-	for (; digit >= 1; val %= digit, digit /= 10)
+	for (; digit >= 1; val %= digit, digit /= base)
 	{
 		if (digit == 1 && too_neg)
 			count += _putchar((val / digit) + too_neg + '0');
@@ -37,10 +38,11 @@ int p_l_sgn(va_list *argz, int base)
  * @base: the base that we're working in, base2 = binary
  * Return: count of chars printed
  */
-int p_l_uns(va_list *argz, int base)
+int p_l_uns(va_list *argz, unsigned long int base)
 {
 	unsigned long int val = va_arg(*argz, unsigned long int);
-	unsigned int digit = 1, count = 0;
+	unsigned int digit = 1;
+	int count = 0;
 
 	/* find the size of val */
 	for (digit = 1; (val / digit) >= base; digit *= base)

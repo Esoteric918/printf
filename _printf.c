@@ -61,7 +61,7 @@ void (*get_funky(char s))(va_list *, int *, flag_list *)
 		{"i", p_di},
 		{"o", p_o},
 		{"%", p_p},
-		{"S", p_Ss},		
+		{"S", p_Ss},
 		{"s", p_Ss},
 		{"u", p_u},
 		{"X", p_Xx},

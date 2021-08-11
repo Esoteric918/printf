@@ -16,6 +16,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 		*D += p_l_uns(argz, 8);
 		return;
 	}
+	val = va_arg(*argz, unsigned int);
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */

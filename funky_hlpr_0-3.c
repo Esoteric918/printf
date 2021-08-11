@@ -73,10 +73,8 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 			val += ++too_neg;
 		val *= -1;
 	}
-	/* find the size of int */
 	for (digit = 1; (val / digit) >= 10; digit *= 10)
 	;
-	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 10)
 	{
 		if (digit == 1 && too_neg)
@@ -100,7 +98,7 @@ void p_p(va_list *argz, int *D, flag_list *flagz)
 	*D += _putchar('%');
 }
 /**
- * p_s - print string
+ * p_Ss - print string
  * @argz: currently string in va_list
  * @D: count of chars printed
  * @flagz: UNUSED - list of possible print modifiers
