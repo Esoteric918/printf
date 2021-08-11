@@ -121,7 +121,7 @@ int p_hex_hlpr(int result, int caps)
 	else
 		count += _putchar(val_L[result]);
 
-	return (0);
+	return (count);
 }
 /**
  * p_buffer - print buffer
