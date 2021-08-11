@@ -42,7 +42,6 @@ int _strcmp(char *, char *);
 int flag_check(const char *, flag_list *, int *, int *, char *, int *);
 int flag_set(const char *, flag_list *);
 void flags_reset(flag_list *, char *);
-void prnt_hlpr(int, int, int *);
 int _printf(const char * const format, ...);
 void (*get_funky(char s))(va_list *, int *, flag_list *);
 /* print functions */
@@ -57,5 +56,6 @@ void p_Ss(va_list *, int *, flag_list *);
 void p_u(va_list *, int *, flag_list *);
 void p_Xx(va_list *, int *, flag_list *);
 void p_buffer(char *buff, int  *D);
+void p_hex_hlpr(int, int, int *);
 
 #endif

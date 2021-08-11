@@ -45,9 +45,15 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
  */
 void p_u(va_list *argz, int *D, flag_list *flagz)
 {
-	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int val;
 	unsigned int digit;
 
+	if ((*flagz).l)
+	{
+		*D += p_l_uns(argz, 8, (*flagz).sp);
+		return;
+	}
+	val = va_arg(*argz, unsigned int);
 	if ((*flagz).sp)
 		*D += _putchar(' ');
 	/* find the size of val */
@@ -66,9 +72,15 @@ void p_u(va_list *argz, int *D, flag_list *flagz)
  */
 void p_Xx(va_list *argz, int *D, flag_list *flagz)
 {
-	unsigned int val = va_arg(*argz, unsigned int);
+	unsigned int val;
 	unsigned int digit;
 
+	if ((*flagz).l)
+	{
+		*D += p_l_uns(argz, 8, (*flagz).sp);
+		return;
+	}
+	val = va_arg(*argz, unsigned int);
 	if ((*flagz).h)
 	{
 		/* check if value is within short range */
@@ -88,17 +100,17 @@ void p_Xx(va_list *argz, int *D, flag_list *flagz)
 	/* walk it back one, and print all the values */
 	for (; digit >= 1; val %= digit, digit /= 16)
 	{
-		prnt_hlpr(val / digit, (*flagz).X, D);
+		p_hex_hlpr(val / digit, (*flagz).X, D);
 	}
 }
 /**
- * prnt_hlpr - hex printer
+ * p_hex_hlpr - hex printer
  * @result: value to print
  * @caps: flags.X int indication to print Caps
  * @D: count of chars printed
  * Return: void
  */
-void prnt_hlpr(int result, int caps, int *D)
+void p_hex_hlpr(int result, int caps, int *D)
 {
 	char val_U[] = "0123456789ABCDEF";
 	char val_L[] = "0123456789abcdef";
