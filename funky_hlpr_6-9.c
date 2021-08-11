@@ -7,9 +7,8 @@
  */
 int p_l_sgn(va_list *argz, long int base)
 {
-	long int val = va_arg(*argz, long int);
-	int digit, too_neg = 0;
-	int count = 0;
+	long int val = va_arg(*argz, long int), digit;
+	int count = 0, too_neg = 0;
 
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
@@ -41,7 +40,7 @@ int p_l_sgn(va_list *argz, long int base)
 int p_l_uns(va_list *argz, unsigned long int base)
 {
 	unsigned long int val = va_arg(*argz, unsigned long int);
-	unsigned int digit = 1;
+	unsigned long int digit;
 	int count = 0;
 
 	/* find the size of val */
