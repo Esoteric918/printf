@@ -28,7 +28,7 @@ void p_o(va_list *argz, int *D, flag_list *flagz)
 		}
 	}
 	if ((*flagz).sp)
-		*D += _putchar(' ');	
+		*D += _putchar(' ');
 	/* find the size of int */
 	for (digit = 1; (val / digit) >= 8; digit *= 8)
 	;

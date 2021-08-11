@@ -63,7 +63,7 @@ void p_di(va_list *argz, int *D, flag_list *flagz)
 		}
 	}
 	if ((*flagz).sp && val >= 0)
-		*D += _putchar(' ');	
+		*D += _putchar(' ');
 	/* check for negative val, INT_MIN > INT_MAX by 1 */
 	if (val < 0)
 	{
